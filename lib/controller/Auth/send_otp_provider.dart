@@ -3,7 +3,7 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/controller/sign_up_provider.dart';
+import 'package:flutter_application_1/controller/Auth/sign_up_provider.dart';
 import 'package:flutter_application_1/view/screens/Auth/login_screen.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';

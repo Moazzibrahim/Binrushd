@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/constants/constants.dart';
-import 'package:flutter_application_1/controller/sign_up_provider.dart';
+import 'package:flutter_application_1/controller/Auth/sign_up_provider.dart';
 import 'package:provider/provider.dart';
 
 class SignUpScreen extends StatelessWidget {

@@ -3,7 +3,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/constants/constants.dart';
-import 'package:flutter_application_1/controller/send_otp_provider.dart';
+import 'package:flutter_application_1/controller/Auth/send_otp_provider.dart';
 import 'package:flutter_application_1/view/screens/Auth/login_screen.dart';
 import 'package:pinput/pinput.dart';
 import 'package:provider/provider.dart';

@@ -2,8 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/constants/constants.dart';
+import 'package:flutter_application_1/controller/Auth/login_provider.dart';
 import 'package:flutter_application_1/controller/fetch_doctors_data_provider.dart';
-import 'package:flutter_application_1/controller/login_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_application_1/controller/make_reservation_provider.dart';
 import 'package:flutter_application_1/controller/fetch_branches_provider.dart';

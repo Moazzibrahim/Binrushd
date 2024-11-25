@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/constants/constants.dart';
-import 'package:flutter_application_1/controller/login_provider.dart';
+import 'package:flutter_application_1/controller/Auth/login_provider.dart';
 import 'package:flutter_application_1/view/screens/Auth/forget_password/forget_password_screen.dart';
 import 'package:flutter_application_1/view/screens/Auth/sign_up_screen.dart';
 import 'package:flutter_application_1/view/screens/tabs_screen.dart';

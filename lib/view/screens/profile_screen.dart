@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/constants/constants.dart';
-import 'package:flutter_application_1/controller/login_provider.dart';
-import 'package:flutter_application_1/controller/logout_provider.dart';
+import 'package:flutter_application_1/controller/Auth/login_provider.dart';
+import 'package:flutter_application_1/controller/Auth/logout_provider.dart';
 import 'package:provider/provider.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -14,19 +14,6 @@ class ProfileScreen extends StatelessWidget {
         child: Column(
           children: [
             const SizedBox(height: 40), // Top padding
-            Align(
-              alignment: Alignment.topLeft,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: Icon(Icons.arrow_back_ios, color: backgroundColor),
-              ),
-            ),
-            const CircleAvatar(
-              radius: 50,
-              backgroundImage: AssetImage(
-                  'assets/images/person.png'), // Replace with your asset
-            ),
-            const SizedBox(height: 10),
             const Text(
               'محمد جابر',
               style: TextStyle(
@@ -103,7 +90,7 @@ class ProfileScreen extends StatelessWidget {
         trailing: InkWell(
           onTap: () async {
             await Provider.of<LogoutProvider>(context, listen: false)
-                .logOut(token: loginProvider.token!,context: context);
+                .logOut(token: loginProvider.token!, context: context);
           },
           child: CircleAvatar(
             backgroundColor: Colors.white,
