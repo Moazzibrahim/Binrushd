@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/constants/constants.dart';
+import 'package:flutter_application_1/controller/login_provider.dart';
+import 'package:flutter_application_1/controller/logout_provider.dart';
+import 'package:provider/provider.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -14,7 +17,7 @@ class ProfileScreen extends StatelessWidget {
             Align(
               alignment: Alignment.topLeft,
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16.0),
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: Icon(Icons.arrow_back_ios, color: backgroundColor),
               ),
             ),
@@ -58,7 +61,7 @@ class ProfileScreen extends StatelessWidget {
               color: backgroundColor,
             ),
             const SizedBox(height: 20),
-            buildLogoutButton(),
+            buildLogoutButton(context),
           ],
         ),
       ),
@@ -83,7 +86,8 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 
-  Widget buildLogoutButton() {
+  Widget buildLogoutButton(BuildContext context) {
+    final loginProvider = Provider.of<LoginProvider>(context, listen: false);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: ListTile(
@@ -96,9 +100,15 @@ class ProfileScreen extends StatelessWidget {
             fontWeight: FontWeight.bold,
           ),
         ),
-        trailing: CircleAvatar(
-          backgroundColor: Colors.white,
-          child: Icon(Icons.logout, color: backgroundColor),
+        trailing: InkWell(
+          onTap: () async {
+            await Provider.of<LogoutProvider>(context, listen: false)
+                .logOut(token: loginProvider.token!,context: context);
+          },
+          child: CircleAvatar(
+            backgroundColor: Colors.white,
+            child: Icon(Icons.logout, color: backgroundColor),
+          ),
         ),
       ),
     );

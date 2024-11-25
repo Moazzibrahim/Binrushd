@@ -12,6 +12,7 @@ class MakeReservationProvider with ChangeNotifier {
       required int isOffer,
       required int offerId,
       required int branchId,
+      required int docId,
       required String survey,
       required String token,
       BuildContext? context // Pass token directly
@@ -27,6 +28,7 @@ class MakeReservationProvider with ChangeNotifier {
       'isOffer': isOffer,
       'offer_id': offerId,
       'branch_id': branchId,
+      'doctor_id': docId,
       'survey': survey,
     };
 
@@ -45,8 +47,8 @@ class MakeReservationProvider with ChangeNotifier {
       if (response.statusCode == 200) {
         print('Request successful: ${response.body}');
         // Handle the response if needed
-        ScaffoldMessenger.of(context!)
-            .showSnackBar(const SnackBar(content: Text("تم الحجز بنجاح")));
+        ScaffoldMessenger.of(context!).showSnackBar(const SnackBar(
+            content: Text(" تم الحجز بنجاح تفقد حسابك للتأكيد ")));
       } else {
         print('Request failed: ${response.statusCode}');
         // Handle error response

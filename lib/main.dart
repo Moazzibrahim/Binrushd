@@ -5,6 +5,8 @@ import 'package:flutter_application_1/controller/fetch_doctors_data_provider.dar
 import 'package:flutter_application_1/controller/fetch_offers_provider.dart';
 import 'package:flutter_application_1/controller/fetch_posts_provider.dart';
 import 'package:flutter_application_1/controller/login_provider.dart';
+import 'package:flutter_application_1/controller/logout_provider.dart';
+import 'package:flutter_application_1/controller/make_report_provider.dart';
 import 'package:flutter_application_1/controller/make_reservation_provider.dart';
 import 'package:flutter_application_1/controller/send_otp_provider.dart';
 import 'package:flutter_application_1/controller/sign_up_provider.dart';
@@ -32,7 +34,9 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => FetchDepartmentsProvider()),
         ChangeNotifierProvider(create: (_) => FetchPostsProvider()),
         ChangeNotifierProvider(create: (_) => FetchOffersProvider()),
-        ChangeNotifierProvider(create: (_)=>MakeReservationProvider()),
+        ChangeNotifierProvider(create: (_) => MakeReservationProvider()),
+        ChangeNotifierProvider(create: (_) => LogoutProvider()),
+        ChangeNotifierProvider(create: (_) => MakeReportProvider()),
       ],
       child: ScreenUtilInit(
         designSize: const Size(375, 812), // Base design dimensions

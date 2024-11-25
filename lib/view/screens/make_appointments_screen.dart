@@ -21,7 +21,7 @@ class _MakeAppointmentScreenState extends State<MakeAppointmentScreen> {
   final TextEditingController _phoneController = TextEditingController();
   String? _selectedSurvey; // Default value
   String? _selectedBranchId; // Store branch ID here
-  String? _selectedDoctor;
+  String? __selectedDoctorId;
 
   @override
   void initState() {
@@ -115,6 +115,22 @@ class _MakeAppointmentScreenState extends State<MakeAppointmentScreen> {
                   );
                 }).toList(),
               ),
+              const SizedBox(height: 16),
+              _buildDropdown(
+                label: "اختار الطبيب",
+                value: __selectedDoctorId,
+                onChanged: (value) {
+                  setState(() {
+                    __selectedDoctorId = value;
+                  });
+                },
+                items: doctors.map((doctor) {
+                  return DropdownMenuItem<String>(
+                    value: doctor.id.toString(), // Store the ID
+                    child: Text("${doctor.fname} ${doctor.lname}"),
+                  );
+                }).toList(),
+              ),
               const SizedBox(height: 32),
               Center(
                 child: ElevatedButton(
@@ -136,71 +152,78 @@ class _MakeAppointmentScreenState extends State<MakeAppointmentScreen> {
       ),
     );
   }
-void _submitForm() {
-  final String customerName = _fullNameController.text.trim();
-  final String email = _emailController.text.trim();
-  final String phone = _phoneController.text.trim();
-  final String survey = _selectedSurvey ?? ""; // Default if null
-  final String branch = _selectedBranchId ?? ""; // Use ID from dropdown
 
-  // Validate fields
-  if (customerName.isEmpty) {
-    _showError("الاسم بالكامل مطلوب");
-    return;
-  }
-  if (email.isEmpty || !_isValidEmail(email)) {
-    _showError("البريد الإلكتروني غير صالح أو فارغ");
-    return;
-  }
-  if (phone.isEmpty || !_isValidPhone(phone)) {
-    _showError("رقم الهاتف غير صالح أو فارغ");
-    return;
-  }
-  if (survey.isEmpty) {
-    _showError("يرجى اختيار كيف سمعت عنا");
-    return;
-  }
-  if (branch.isEmpty) {
-    _showError("يرجى اختيار الفرع");
-    return;
-  }
+  void _submitForm() {
+    final String customerName = _fullNameController.text.trim();
+    final String email = _emailController.text.trim();
+    final String phone = _phoneController.text.trim();
+    final String survey = _selectedSurvey ?? ""; // Default if null
+    final String branch = _selectedBranchId ?? ""; // Use ID from dropdown
+    final String doctorr = __selectedDoctorId ?? "";
 
-  final provider =
-      Provider.of<MakeReservationProvider>(context, listen: false);
-  final loginProvider = Provider.of<LoginProvider>(context, listen: false);
+    // Validate fields
+    if (customerName.isEmpty) {
+      _showError("الاسم بالكامل مطلوب");
+      return;
+    }
+    if (email.isEmpty || !_isValidEmail(email)) {
+      _showError("البريد الإلكتروني غير صالح أو فارغ");
+      return;
+    }
+    if (phone.isEmpty || !_isValidPhone(phone)) {
+      _showError("رقم الهاتف غير صالح أو فارغ");
+      return;
+    }
+    if (survey.isEmpty) {
+      _showError("يرجى اختيار كيف سمعت عنا");
+      return;
+    }
+    if (branch.isEmpty) {
+      _showError("يرجى اختيار الفرع");
+      return;
+    }
+    if (doctorr.isEmpty) {
+      _showError("يرجى اختيار الطبيب");
+      return;
+    }
 
-  // Make the API call
-  provider.sendPostRequest(
-    customerName: customerName,
-    email: email,
-    phone: phone,
-    isOffer: 1, // Example value
-    offerId: 10, // Example value
-    branchId: int.parse(branch), // Parse the branch ID
-    survey: survey,
-    context: context,
-    token: loginProvider.token!
-  );
-}
+    final provider =
+        Provider.of<MakeReservationProvider>(context, listen: false);
+    final loginProvider = Provider.of<LoginProvider>(context, listen: false);
+
+    // Make the API call
+    provider.sendPostRequest(
+        customerName: customerName,
+        email: email,
+        phone: phone,
+        isOffer: 1, // Example value
+        offerId: 10, // Example value
+        branchId: int.parse(branch), // Parse the branch ID
+        docId: int.parse(__selectedDoctorId!),
+        survey: survey,
+        context: context,
+        token: loginProvider.token!);
+  }
 
 // Function to validate email
-bool _isValidEmail(String email) {
-  final emailRegex = RegExp(r"^[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$");
-  return emailRegex.hasMatch(email);
-}
+  bool _isValidEmail(String email) {
+    final emailRegex =
+        RegExp(r"^[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$");
+    return emailRegex.hasMatch(email);
+  }
 
 // Function to validate phone number
-bool _isValidPhone(String phone) {
-  final phoneRegex = RegExp(r"^\+?[0-9]{10,15}$");
-  return phoneRegex.hasMatch(phone);
-}
+  bool _isValidPhone(String phone) {
+    final phoneRegex = RegExp(r"^\+?[0-9]{10,15}$");
+    return phoneRegex.hasMatch(phone);
+  }
 
 // Function to show error message
-void _showError(String message) {
-  ScaffoldMessenger.of(context).showSnackBar(
-    SnackBar(content: Text(message)),
-  );
-}
+  void _showError(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(message)),
+    );
+  }
 
   Widget _buildTextField({
     required String label,
