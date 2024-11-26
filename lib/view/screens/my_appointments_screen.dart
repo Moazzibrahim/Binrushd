@@ -1,6 +1,8 @@
+// ignore_for_file: library_private_types_in_public_api, avoid_print
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/constants/constants.dart';
 import 'package:flutter_application_1/controller/Auth/login_provider.dart';
+import 'package:flutter_application_1/controller/add_to_favourites_provider.dart';
 import 'package:flutter_application_1/view/screens/onboarding/appointments_details_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -15,7 +17,8 @@ class MyAppointmentsScreen extends StatelessWidget {
         .data
         .user
         .reservations;
-
+    final loginProvider = Provider.of<LoginProvider>(context, listen: false);
+    final token = loginProvider.token;
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -36,13 +39,20 @@ class MyAppointmentsScreen extends StatelessWidget {
         itemCount: reservations.length,
         itemBuilder: (context, index) {
           final reservation = reservations[index];
+          final doctor = reservation.doctor;
+          final doctorName = doctor != null
+              ? "${doctor.fname} ${doctor.lname}" // Safely access doctor's name
+              : "Unknown Doctor"; // Fallback for null doctor
+          final docid = doctor != null ? doctor.id : 0;
+
           return Column(
             children: [
-              _buildDoctorCard(
-                context,
-                name: reservation.branch.name, // Doctor's name from branch
+              DoctorCard(
+                name: reservation.branch.name, // Branch name
+                doctorname: doctorName,
                 location: reservation.branch.address, // Branch address
-                isFavorite: false, // Default value for favorite
+                token: token!,
+                docId: docid,
               ),
               const SizedBox(height: 16.0),
             ],
@@ -51,13 +61,35 @@ class MyAppointmentsScreen extends StatelessWidget {
       ),
     );
   }
+}
 
-  Widget _buildDoctorCard(
-    BuildContext context, {
-    required String name,
-    required String location,
-    required bool isFavorite,
-  }) {
+class DoctorCard extends StatefulWidget {
+  final String name;
+  final String location;
+  final String? doctorname;
+  final int? docId;
+  final String token;
+
+  const DoctorCard({
+    super.key,
+    required this.name,
+    required this.location,
+    required this.doctorname,
+    this.docId,
+    required this.token,
+  });
+
+  @override
+  _DoctorCardState createState() => _DoctorCardState();
+}
+class _DoctorCardState extends State<DoctorCard> {
+  bool isFavorite = false;
+
+  @override
+  Widget build(BuildContext context) {
+    final favprovider =
+        Provider.of<AddToFavouritesProvider>(context, listen: false);
+
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
@@ -81,8 +113,36 @@ class MyAppointmentsScreen extends StatelessWidget {
                   isFavorite ? Icons.favorite : Icons.favorite_border,
                   color: isFavorite ? backgroundColor : Colors.grey,
                 ),
-                onPressed: () {
-                  // Handle favorite action
+                onPressed: () async {
+                  if (isFavorite) {
+                    // Remove from favorites
+                    try {
+                      await favprovider.removeFav(
+                        context: context,
+                        doctorId: widget.docId,
+                        token: widget.token,
+                      );
+                      setState(() {
+                        isFavorite = false;
+                      });
+                    } catch (e) {
+                      print("Error removing from favorites: $e");
+                    }
+                  } else {
+                    // Add to favorites
+                    try {
+                      await favprovider.addToFav(
+                        context: context,
+                        doctorId: widget.docId,
+                        token: widget.token,
+                      );
+                      setState(() {
+                        isFavorite = true;
+                      });
+                    } catch (e) {
+                      print("Error adding to favorites: $e");
+                    }
+                  }
                 },
               ),
               // Doctor Details
@@ -91,7 +151,16 @@ class MyAppointmentsScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Text(
-                      name,
+                      widget.name,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                      ),
+                      textAlign: TextAlign.right,
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      widget.doctorname ?? '',
                       style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 16,
@@ -103,7 +172,7 @@ class MyAppointmentsScreen extends StatelessWidget {
                       children: [
                         Expanded(
                           child: Text(
-                            location,
+                            widget.location,
                             style: const TextStyle(
                               color: Colors.grey,
                               fontSize: 12,
@@ -116,8 +185,6 @@ class MyAppointmentsScreen extends StatelessWidget {
                   ],
                 ),
               ),
-
-              const SizedBox(width: 12),
             ],
           ),
           const SizedBox(height: 12),

@@ -52,6 +52,7 @@ class _AllBranchesScreenState extends State<AllBranchesScreen> {
                         return CenterCard(
                           location: branch.address,
                           imageUrl: branch.image,
+                          id: branch.id,
                         );
                       },
                     ),
@@ -66,11 +67,13 @@ class _AllBranchesScreenState extends State<AllBranchesScreen> {
 class CenterCard extends StatelessWidget {
   final String location;
   final String imageUrl;
+  final int? id;
 
   const CenterCard({
     super.key,
     required this.location,
     required this.imageUrl,
+    this.id,
   });
 
   @override
@@ -112,7 +115,10 @@ class CenterCard extends StatelessWidget {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const BranchDetailsScreen()));
+                        builder: (context) => BranchDetailsScreen(
+                              branchId: id,
+                              image: imageUrl,
+                            )));
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: backgroundColor,
@@ -121,7 +127,7 @@ class CenterCard extends StatelessWidget {
                 ),
               ),
               child: const Text(
-                'حجز موعد',
+                'تفاصيل',
                 style: TextStyle(color: Colors.white),
               ),
             ),

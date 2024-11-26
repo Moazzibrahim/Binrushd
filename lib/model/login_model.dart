@@ -106,7 +106,7 @@ class Reservation {
   final int isOffer;
   final Offer offer;
   final Branch branch;
-  final dynamic doctor;
+  final Doctor? doctor;
 
   Reservation({
     required this.id,
@@ -115,7 +115,7 @@ class Reservation {
     required this.isOffer,
     required this.offer,
     required this.branch,
-    this.doctor,
+    required this.doctor,
   });
 
   factory Reservation.fromJson(Map<String, dynamic> json) {
@@ -295,6 +295,42 @@ class Branch {
       'worktimes': worktimes,
       'active': active,
       'email': email,
+    };
+  }
+}
+
+class Doctor {
+  final int? id;
+  final String? fname;
+  final String ?lname;
+  final String ?image;
+  final int ?highlighted;
+
+  Doctor({
+    required this.id,
+    required this.fname,
+    required this.lname,
+    required this.image,
+    required this.highlighted,
+  });
+
+  factory Doctor.fromJson(Map<String, dynamic> json) {
+    return Doctor(
+      id: json['id'],
+      fname: json['fname'],
+      lname: json['lname'],
+      image: json['image'],
+      highlighted: json['highligthed'],
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'fname': fname,
+      'lname': lname,
+      'image': image,
+      'highligthed': highlighted,
     };
   }
 }

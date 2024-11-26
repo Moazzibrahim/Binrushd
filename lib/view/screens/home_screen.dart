@@ -292,18 +292,18 @@ class _HomePageState extends State<HomePage> {
                       const SizedBox(
                         width: 170,
                       ),
-                      InkWell(
-                        child: Image.asset("assets/images/filter.png"),
-                        onTap: () {
-                          showModalBottomSheet(
-                            context: context,
-                            isScrollControlled: true,
-                            builder: (context) {
-                              return const AppointmentsFilterWidget();
-                            },
-                          );
-                        },
-                      ),
+                      // InkWell(
+                      //   child: Image.asset("assets/images/filter.png"),
+                      //   onTap: () {
+                      //     showModalBottomSheet(
+                      //       context: context,
+                      //       isScrollControlled: true,
+                      //       builder: (context) {
+                      //         return const AppointmentsFilterWidget();
+                      //       },
+                      //     );
+                      //   },
+                      // ),
                     ],
                   ),
                   const SizedBox(height: 16),

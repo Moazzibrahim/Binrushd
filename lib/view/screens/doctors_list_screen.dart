@@ -1,5 +1,9 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/constants/constants.dart';
+import 'package:flutter_application_1/controller/Auth/login_provider.dart';
+import 'package:flutter_application_1/controller/add_to_favourites_provider.dart';
 import 'package:flutter_application_1/controller/fetch_doctors_data_provider.dart';
 import 'package:flutter_application_1/view/screens/doctor_details_screen.dart';
 import 'package:provider/provider.dart';
@@ -12,11 +16,15 @@ class DoctorsListScreen extends StatefulWidget {
 }
 
 class _DoctorsListScreenState extends State<DoctorsListScreen> {
-  // Set to keep track of favorite items
-  final Set<int> _favoriteIndices = {};
+  final Set<int> _favoriteIndices = {}; // Keep track of favorite doctors
 
   @override
   Widget build(BuildContext context) {
+    final favProvider =
+        Provider.of<AddToFavouritesProvider>(context, listen: false);
+    final logProvider = Provider.of<LoginProvider>(context, listen: false);
+    final token = logProvider.token;
+
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -26,34 +34,32 @@ class _DoctorsListScreenState extends State<DoctorsListScreen> {
         title: const Text(
           'الأطباء',
           style: TextStyle(
-              color: Colors.black, fontSize: 18, fontWeight: FontWeight.w700),
+            color: Colors.black,
+            fontSize: 18,
+            fontWeight: FontWeight.w700,
+          ),
         ),
         actions: [
           IconButton(
             icon: const Icon(Icons.arrow_back_ios, color: Colors.black),
-            onPressed: () {
-              Navigator.pop(context);
-            },
+            onPressed: () => Navigator.pop(context),
           ),
         ],
       ),
       body: Consumer<FetchDoctorsDataProvider>(
         builder: (context, doctorsProvider, child) {
-          // Check if the data is still being fetched
-          if (doctorsProvider.doctorsResponse == null) {
-            return const Center(
-              child: CircularProgressIndicator(), // Show loading spinner
-            );
+          final doctorsResponse = doctorsProvider.doctorsResponse;
+
+          // Show loading spinner while fetching data
+          if (doctorsResponse == null) {
+            return const Center(child: CircularProgressIndicator());
           }
 
-          // Get the list of doctors from the provider
-          final doctors = doctorsProvider.doctorsResponse!.data;
+          final doctors = doctorsResponse.data;
 
-          // If no doctors available
+          // Show a message if no doctors are available
           if (doctors.isEmpty) {
-            return const Center(
-              child: Text('لا يوجد أطباء حاليا'), // No doctors message
-            );
+            return const Center(child: Text('لا يوجد أطباء حاليا'));
           }
 
           return ListView.builder(
@@ -83,23 +89,32 @@ class _DoctorsListScreenState extends State<DoctorsListScreen> {
                                 isFavorite
                                     ? Icons.favorite
                                     : Icons.favorite_border,
-                                color: isFavorite
-                                    ? backgroundColor
-                                    : backgroundColor,
+                                color: backgroundColor,
                               ),
-                              onPressed: () {
-                                setState(() {
+                              onPressed: () async {
+                                try {
                                   if (isFavorite) {
-                                    _favoriteIndices.remove(index);
+                                    await favProvider.removeFav(
+                                      context: context,
+                                      doctorId: doctor.id,
+                                      token: token,
+                                    );
+                                    setState(
+                                        () => _favoriteIndices.remove(index));
                                   } else {
-                                    _favoriteIndices.add(index);
+                                    await favProvider.addToFav(
+                                      context: context,
+                                      doctorId: doctor.id,
+                                      token: token,
+                                    );
+                                    setState(() => _favoriteIndices.add(index));
                                   }
-                                });
+                                } catch (e) {
+                                  print("Error managing favorites: $e");
+                                }
                               },
                             ),
-                            const SizedBox(
-                              width: 5,
-                            ),
+                            const SizedBox(width: 5),
                             // Doctor's Details
                             Expanded(
                               child: Column(
@@ -131,18 +146,23 @@ class _DoctorsListScreenState extends State<DoctorsListScreen> {
                                 width: 80,
                                 height: 80,
                                 fit: BoxFit.cover,
+                                errorBuilder: (context, error, stackTrace) =>
+                                    const Icon(
+                                  Icons.broken_image,
+                                  size: 80,
+                                ),
                               ),
                             ),
                           ],
                         ),
-                        const SizedBox(
-                          height: 8,
-                        ),
+                        const SizedBox(height: 8),
                         ElevatedButton(
                           style: ElevatedButton.styleFrom(
                             backgroundColor: backgroundColor,
                             padding: const EdgeInsets.symmetric(
-                                vertical: 12, horizontal: 100),
+                              vertical: 12,
+                              horizontal: 100,
+                            ),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10),
                             ),
@@ -151,18 +171,21 @@ class _DoctorsListScreenState extends State<DoctorsListScreen> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => const DoctorDetailsScreen(),
+                                builder: (context) => DoctorDetailsScreen(
+                                  docid: doctor.id,
+                                ),
                               ),
                             );
                           },
                           child: const Text(
                             "عرض الملف الشخصي",
                             style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 12,
-                                fontWeight: FontWeight.w600),
+                              color: Colors.white,
+                              fontSize: 12,
+                              fontWeight: FontWeight.w600,
+                            ),
                           ),
-                        )
+                        ),
                       ],
                     ),
                   ),
