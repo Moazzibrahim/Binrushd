@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/constants/constants.dart';
-import 'package:flutter_application_1/controller/Auth/fetch_individual_branch_provider.dart';
+import 'package:flutter_application_1/controller/branches/fetch_individual_branch_provider.dart';
 import 'package:provider/provider.dart';
 
 class BranchDetailsScreen extends StatefulWidget {

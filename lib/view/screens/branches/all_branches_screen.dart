@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/constants/constants.dart';
-import 'package:flutter_application_1/view/screens/branch_details_screen.dart';
+import 'package:flutter_application_1/controller/branches/fetch_branches_provider.dart';
+import 'package:flutter_application_1/view/screens/branches/branch_details_screen.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_application_1/controller/fetch_branches_provider.dart'; // Import your provider
+
 
 class AllBranchesScreen extends StatefulWidget {
   const AllBranchesScreen({super.key});

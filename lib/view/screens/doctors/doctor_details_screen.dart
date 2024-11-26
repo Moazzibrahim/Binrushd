@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/constants/constants.dart';
-import 'package:flutter_application_1/controller/fetch_individual_doctor_provider.dart';
-import 'package:flutter_application_1/view/screens/doctor_reservation_screen.dart';
+import 'package:flutter_application_1/controller/doctors/fetch_individual_doctor_provider.dart';
+import 'package:flutter_application_1/view/screens/doctors/doctor_reservation_screen.dart';
 import 'package:provider/provider.dart';
 
 class DoctorDetailsScreen extends StatelessWidget {

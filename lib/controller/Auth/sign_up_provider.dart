@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/constants/constants.dart';
-import 'package:flutter_application_1/model/sign_up_model.dart';
+import 'package:flutter_application_1/model/auth/sign_up_model.dart';
 import 'package:flutter_application_1/view/screens/Auth/forget_password/email_verification_screen.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;

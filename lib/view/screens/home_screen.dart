@@ -1,21 +1,19 @@
 // ignore_for_file: use_build_context_synchronously, unnecessary_null_comparison
-
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/constants/constants.dart';
-import 'package:flutter_application_1/controller/fetch_branches_provider.dart';
+import 'package:flutter_application_1/controller/branches/fetch_branches_provider.dart';
+import 'package:flutter_application_1/controller/doctors/fetch_doctors_data_provider.dart';
 import 'package:flutter_application_1/controller/fetch_departments_provider.dart';
-import 'package:flutter_application_1/controller/fetch_doctors_data_provider.dart';
 import 'package:flutter_application_1/controller/fetch_offers_provider.dart';
 import 'package:flutter_application_1/controller/fetch_posts_provider.dart';
 import 'package:flutter_application_1/view/screens/all_Specialties_screen.dart';
 import 'package:flutter_application_1/view/screens/all_articles_screen.dart';
-import 'package:flutter_application_1/view/screens/all_branches_screen.dart';
+import 'package:flutter_application_1/view/screens/appointments/make_appointments_screen.dart';
+import 'package:flutter_application_1/view/screens/branches/all_branches_screen.dart';
 import 'package:flutter_application_1/view/screens/doctors_list_screen.dart';
-import 'package:flutter_application_1/view/screens/make_appointments_screen.dart';
 import 'package:flutter_application_1/view/screens/notifications_screen.dart';
-import 'package:flutter_application_1/view/widgets/new_appointments_widget.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
