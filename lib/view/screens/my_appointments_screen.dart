@@ -1,12 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/constants/constants.dart';
+import 'package:flutter_application_1/controller/Auth/login_provider.dart';
 import 'package:flutter_application_1/view/screens/onboarding/appointments_details_screen.dart';
+import 'package:provider/provider.dart';
 
 class MyAppointmentsScreen extends StatelessWidget {
   const MyAppointmentsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    // Fetch appointments from the provider
+    final reservations = Provider.of<LoginProvider>(context, listen: false)
+        .loginResponse!
+        .data
+        .user
+        .reservations;
+
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -22,29 +31,23 @@ class MyAppointmentsScreen extends StatelessWidget {
         foregroundColor: Colors.black,
         elevation: 0,
       ),
-      body: ListView(
+      body: ListView.builder(
         padding: const EdgeInsets.all(16.0),
-        children: [
-          _buildDoctorCard(
-            context,
-            name: "دكتور/ عبد الله محمد",
-            specialization: "إخصائي جراحة عيون",
-            location: "الرياض، المملكة العربية السعودية",
-            imageUrl:
-                "assets/images/doctor.png", // Replace with actual image URL
-            isFavorite: true,
-          ),
-          const SizedBox(height: 16.0),
-          _buildDoctorCard(
-            context,
-            name: "دكتور/ أحمد محمود",
-            specialization: "إخصائي جراحة عيون",
-            location: "الرياض، المملكة العربية السعودية",
-            imageUrl:
-                "assets/images/newdoctor.png", // Replace with actual image URL
-            isFavorite: false,
-          ),
-        ],
+        itemCount: reservations.length,
+        itemBuilder: (context, index) {
+          final reservation = reservations[index];
+          return Column(
+            children: [
+              _buildDoctorCard(
+                context,
+                name: reservation.branch.name, // Doctor's name from branch
+                location: reservation.branch.address, // Branch address
+                isFavorite: false, // Default value for favorite
+              ),
+              const SizedBox(height: 16.0),
+            ],
+          );
+        },
       ),
     );
   }
@@ -52,9 +55,7 @@ class MyAppointmentsScreen extends StatelessWidget {
   Widget _buildDoctorCard(
     BuildContext context, {
     required String name,
-    required String specialization,
     required String location,
-    required String imageUrl,
     required bool isFavorite,
   }) {
     return Container(
@@ -98,15 +99,6 @@ class MyAppointmentsScreen extends StatelessWidget {
                       textAlign: TextAlign.right,
                     ),
                     const SizedBox(height: 4),
-                    Text(
-                      specialization,
-                      style: const TextStyle(
-                        color: Colors.grey,
-                        fontSize: 14,
-                      ),
-                      textAlign: TextAlign.right,
-                    ),
-                    const SizedBox(height: 4),
                     Row(
                       children: [
                         Expanded(
@@ -124,17 +116,7 @@ class MyAppointmentsScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              const SizedBox(width: 12),
-              // Doctor Image (Now on the right)
-              ClipRRect(
-                borderRadius: BorderRadius.circular(12),
-                child: Image.asset(
-                  imageUrl,
-                  width: 90,
-                  height: 90,
-                  fit: BoxFit.cover,
-                ),
-              ),
+
               const SizedBox(width: 12),
             ],
           ),
@@ -152,12 +134,14 @@ class MyAppointmentsScreen extends StatelessWidget {
                 ),
               ),
               onPressed: () {
-                // Handle "View Details" action
+                // Navigate to appointment details
                 Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) =>
-                            const AppointmentDetailsScreen()));
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        const AppointmentDetailsScreen(), // Pass reservation if needed
+                  ),
+                );
               },
               icon: const Icon(
                 Icons.keyboard_arrow_down,

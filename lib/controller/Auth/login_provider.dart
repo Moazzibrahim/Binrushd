@@ -1,12 +1,14 @@
 // ignore_for_file: avoid_print, use_build_context_synchronously
-
 import 'dart:developer';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/model/login_model.dart';
 import 'package:flutter_application_1/view/screens/tabs_screen.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class LoginProvider with ChangeNotifier {
+  LoginResponse? _loginResponse;
+  LoginResponse? get loginResponse => _loginResponse;
   String? token;
   String? fname;
   Future<void> login(
@@ -42,9 +44,10 @@ class LoginProvider with ChangeNotifier {
         // Handle the response body if necessary
         final responseBody = json.decode(response.body);
         token = responseBody['data']['user']['token'];
-        fname = responseBody['data']['user']['fname'];
         log(token!);
         print(responseBody);
+        _loginResponse = LoginResponse.fromJson(responseBody);
+        notifyListeners();
       } else {
         // Failed login attempt
         print('Failed to login. Status code: ${response.statusCode}');
