@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/controller/Auth/login_provider.dart';
 import 'package:flutter_application_1/controller/Auth/logout_provider.dart';
+import 'package:flutter_application_1/controller/Auth/reset_password_provider.dart';
 import 'package:flutter_application_1/controller/Auth/send_otp_provider.dart';
 import 'package:flutter_application_1/controller/Auth/sign_up_provider.dart';
 import 'package:flutter_application_1/controller/about_us_provider.dart';
@@ -14,6 +15,7 @@ import 'package:flutter_application_1/controller/fetch_offers_provider.dart';
 import 'package:flutter_application_1/controller/fetch_posts_provider.dart';
 import 'package:flutter_application_1/controller/make_report_provider.dart';
 import 'package:flutter_application_1/controller/make_reservation_provider.dart';
+import 'package:flutter_application_1/controller/profile_provider.dart';
 import 'package:flutter_application_1/view/screens/onboarding/splash_screen.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
@@ -45,6 +47,8 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => FetchIndividualDoctorProvider()),
         ChangeNotifierProvider(create: (_) => FetchIndividualBranchProvider()),
         ChangeNotifierProvider(create: (_) => AboutUsProvider()),
+        ChangeNotifierProvider(create: (_) => ProfileProvider()),
+        ChangeNotifierProvider(create: (_) => ResetPasswordProvider()),
       ],
       child: ScreenUtilInit(
         designSize: const Size(375, 812), // Base design dimensions
