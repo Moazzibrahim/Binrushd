@@ -259,50 +259,57 @@ class _HomePageState extends State<HomePage> {
                   const SizedBox(
                     height: 16,
                   ),
-                  Row(
-                    textDirection: TextDirection.rtl,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      FilterButton(
-                          icon: Icons.location_city,
-                          label: 'الفروع',
-                          backgroundColor: Colors.grey[200],
-                          isSelected: !isDoctorsSelected, // Invert the state
-                          onTap: () {
-                            setState(() {
-                              isDoctorsSelected = false;
-                              selectionindex = 1;
-                            });
-                          }),
-                      const SizedBox(width: 8),
-                      FilterButton(
-                          icon: Icons.person,
-                          label: 'الأطباء',
-                          backgroundColor: Colors.grey[200],
-                          isSelected:
-                              isDoctorsSelected, // Use current selection state
-                          onTap: () {
-                            setState(() {
-                              isDoctorsSelected = true;
-                              selectionindex = 0;
-                            });
-                          }),
-                      const SizedBox(
-                        width: 170,
-                      ),
-                      // InkWell(
-                      //   child: Image.asset("assets/images/filter.png"),
-                      //   onTap: () {
-                      //     showModalBottomSheet(
-                      //       context: context,
-                      //       isScrollControlled: true,
-                      //       builder: (context) {
-                      //         return const AppointmentsFilterWidget();
-                      //       },
-                      //     );
-                      //   },
-                      // ),
-                    ],
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      textDirection: TextDirection.rtl,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(right: 2),
+                          child: FilterButton(
+                              icon: Icons.location_city,
+                              label: 'الفروع',
+                              backgroundColor: Colors.grey[200],
+                              isSelected:
+                                  !isDoctorsSelected, // Invert the state
+                              onTap: () {
+                                setState(() {
+                                  isDoctorsSelected = false;
+                                  selectionindex = 1;
+                                });
+                              }),
+                        ),
+                        const SizedBox(width: 8),
+                        FilterButton(
+                            icon: Icons.person,
+                            label: 'الأطباء',
+                            backgroundColor: Colors.grey[200],
+                            isSelected:
+                                isDoctorsSelected, // Use current selection state
+                            onTap: () {
+                              setState(() {
+                                isDoctorsSelected = true;
+                                selectionindex = 0;
+                              });
+                            }),
+                        const SizedBox(
+                          width: 170,
+                        ),
+                        // InkWell(
+                        //   child: Image.asset("assets/images/filter.png"),
+                        //   onTap: () {
+                        //     showModalBottomSheet(
+                        //       context: context,
+                        //       isScrollControlled: true,
+                        //       builder: (context) {
+                        //         return const AppointmentsFilterWidget();
+                        //       },
+                        //     );
+                        //   },
+                        // ),
+                      ],
+                    ),
                   ),
                   const SizedBox(height: 16),
                   selectionindex == 0

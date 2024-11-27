@@ -139,16 +139,37 @@ class ScheduleItem extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4.0),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment:
+            MainAxisAlignment.end, // Align everything to the right
         children: [
-          Text(
-            time,
-            style: const TextStyle(
-                fontSize: 10, color: Colors.black, fontWeight: FontWeight.w400),
+          // Display time first for RTL alignment
+          Expanded(
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              reverse: true, // Ensure text scrolling starts from the right
+              child: Text(
+                time,
+                style: const TextStyle(
+                  fontSize: 12,
+                  color: Colors.black,
+                  fontWeight: FontWeight.w400,
+                ),
+                textAlign: TextAlign.right,
+              ),
+            ),
           ),
-          Text(
-            day,
-            style: const TextStyle(fontSize: 10, color: Colors.black),
+          const SizedBox(width: 8), // Add spacing between time and day
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            reverse: true, // Ensure text scrolling starts from the right
+            child: Text(
+              day,
+              style: const TextStyle(
+                fontSize: 12,
+                color: Colors.black,
+              ),
+              textAlign: TextAlign.right,
+            ),
           ),
         ],
       ),

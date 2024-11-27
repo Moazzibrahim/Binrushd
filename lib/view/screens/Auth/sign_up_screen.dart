@@ -169,7 +169,7 @@ class SignUpScreen extends StatelessWidget {
                           'انشاء حساب',
                           style: TextStyle(
                               color: Colors.white,
-                              fontSize: 16,
+                              fontSize: 13,
                               fontWeight: FontWeight.w500),
                         ),
                       ),
