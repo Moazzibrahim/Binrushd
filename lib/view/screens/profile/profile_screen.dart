@@ -75,14 +75,14 @@ class ProfileScreens extends StatelessWidget {
                 );
               },
             ),
-            buildProfileMenuItem(
-              icon: Icons.work_history,
-              text: ' من نحن',
-              color: backgroundColor,
-              onTap: () {
-                // Add navigation or functionality here
-              },
-            ),
+            // buildProfileMenuItem(
+            //   icon: Icons.work_history,
+            //   text: ' من نحن',
+            //   color: backgroundColor,
+            //   onTap: () {
+            //     // Add navigation or functionality here
+            //   },
+            // ),
             const SizedBox(height: 20),
             buildLogoutButton(context),
           ],

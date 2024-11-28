@@ -94,38 +94,38 @@ class _HomePageState extends State<HomePage> {
               padding: const EdgeInsets.all(16.0),
               child: Row(
                 children: [
-                  Stack(
-                    children: [
-                      IconButton(
-                        icon: const Icon(Icons.notifications),
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      const NotificationsScreen()));
-                        },
-                      ),
-                      Positioned(
-                        right: 8,
-                        top: 8,
-                        child: Container(
-                          padding: const EdgeInsets.all(4),
-                          decoration: BoxDecoration(
-                            color: backgroundColor,
-                            shape: BoxShape.circle,
-                          ),
-                          child: Text(
-                            '3',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 12.sp,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+                  // Stack(
+                  //   children: [
+                  //     IconButton(
+                  //       icon: const Icon(Icons.notifications),
+                  //       onPressed: () {
+                  //         Navigator.push(
+                  //             context,
+                  //             MaterialPageRoute(
+                  //                 builder: (context) =>
+                  //                     const NotificationsScreen()));
+                  //       },
+                  //     ),
+                  //     Positioned(
+                  //       right: 8,
+                  //       top: 8,
+                  //       child: Container(
+                  //         padding: const EdgeInsets.all(4),
+                  //         decoration: BoxDecoration(
+                  //           color: backgroundColor,
+                  //           shape: BoxShape.circle,
+                  //         ),
+                  //         child: Text(
+                  //           '3',
+                  //           style: TextStyle(
+                  //             color: Colors.white,
+                  //             fontSize: 12.sp,
+                  //           ),
+                  //         ),
+                  //       ),
+                  //     ),
+                  //   ],
+                  // ),
                   const SizedBox(width: 15),
                   Expanded(
                     child: TextField(

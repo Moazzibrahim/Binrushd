@@ -22,7 +22,7 @@ class _SplashScreenState extends State<SplashScreen> {
         context,
         MaterialPageRoute(
             builder: (context) =>
-                const FirstOnboarding()), // Replace with your screen
+                const OnboardingScreen()), // Replace with your screen
       );
     });
   }
