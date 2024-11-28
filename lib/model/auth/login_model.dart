@@ -49,6 +49,7 @@ class User {
   final String updatedAt;
   final String token;
   final List<Reservation> reservations;
+  final List<Favorite> favourites;
 
   User({
     required this.id,
@@ -62,6 +63,7 @@ class User {
     required this.updatedAt,
     required this.token,
     required this.reservations,
+    required this.favourites,
   });
 
   factory User.fromJson(Map<String, dynamic> json) {
@@ -79,6 +81,9 @@ class User {
       reservations: (json['reservations'] as List)
           .map((e) => Reservation.fromJson(e))
           .toList(),
+      favourites: (json['favorites'] as List)
+          .map((e) => Favorite.fromJson(e))
+          .toList(),
     );
   }
 
@@ -95,6 +100,7 @@ class User {
       'updated_at': updatedAt,
       'token': token,
       'reservations': reservations.map((e) => e.toJson()).toList(),
+      'favorites': favourites.map((e) => e.toJson()).toList(),
     };
   }
 }
@@ -106,7 +112,7 @@ class Reservation {
   final int isOffer;
   final Offer offer;
   final Branch branch;
-  final dynamic doctor;
+  final Doctor? doctor;
 
   Reservation({
     required this.id,
@@ -115,7 +121,7 @@ class Reservation {
     required this.isOffer,
     required this.offer,
     required this.branch,
-    this.doctor,
+    required this.doctor,
   });
 
   factory Reservation.fromJson(Map<String, dynamic> json) {
@@ -295,6 +301,82 @@ class Branch {
       'worktimes': worktimes,
       'active': active,
       'email': email,
+    };
+  }
+}
+
+class Doctor {
+  final int? id;
+  final String? fname;
+  final String? lname;
+  final String? image;
+  final int? highlighted;
+
+  Doctor({
+    required this.id,
+    required this.fname,
+    required this.lname,
+    required this.image,
+    required this.highlighted,
+  });
+
+  factory Doctor.fromJson(Map<String, dynamic> json) {
+    return Doctor(
+      id: json['id'],
+      fname: json['fname'],
+      lname: json['lname'],
+      image: json['image'],
+      highlighted: json['highligthed'],
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'fname': fname,
+      'lname': lname,
+      'image': image,
+      'highligthed': highlighted,
+    };
+  }
+}
+
+class Favorite {
+  final String fname;
+  final String lname;
+  final String speciality;
+  final String degree;
+  final int id;
+  final String image;
+
+  Favorite({
+    required this.fname,
+    required this.speciality,
+    required this.degree,
+    required this.lname,
+    required this.id,
+    required this.image,
+  });
+
+  factory Favorite.fromJson(Map<String, dynamic> json) {
+    return Favorite(
+      fname: json['fname'],
+      lname: json['lname'],
+      speciality: json['Speciality'],
+      degree: json['Degree'],
+      id: json['id'],
+      image: json['image'],
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'fname': fname,
+      'lname': lname,
+      'Speciality': speciality,
+      'Degree': degree,
+      'id': id,
+      'image': image,
     };
   }
 }

@@ -1,21 +1,19 @@
 // ignore_for_file: use_build_context_synchronously, unnecessary_null_comparison
-
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/constants/constants.dart';
-import 'package:flutter_application_1/controller/fetch_branches_provider.dart';
+import 'package:flutter_application_1/controller/branches/fetch_branches_provider.dart';
+import 'package:flutter_application_1/controller/doctors/fetch_doctors_data_provider.dart';
 import 'package:flutter_application_1/controller/fetch_departments_provider.dart';
-import 'package:flutter_application_1/controller/fetch_doctors_data_provider.dart';
 import 'package:flutter_application_1/controller/fetch_offers_provider.dart';
 import 'package:flutter_application_1/controller/fetch_posts_provider.dart';
 import 'package:flutter_application_1/view/screens/all_Specialties_screen.dart';
 import 'package:flutter_application_1/view/screens/all_articles_screen.dart';
-import 'package:flutter_application_1/view/screens/all_branches_screen.dart';
+import 'package:flutter_application_1/view/screens/appointments/make_appointments_screen.dart';
+import 'package:flutter_application_1/view/screens/branches/all_branches_screen.dart';
 import 'package:flutter_application_1/view/screens/doctors_list_screen.dart';
-import 'package:flutter_application_1/view/screens/make_appointments_screen.dart';
 import 'package:flutter_application_1/view/screens/notifications_screen.dart';
-import 'package:flutter_application_1/view/widgets/new_appointments_widget.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
@@ -261,50 +259,57 @@ class _HomePageState extends State<HomePage> {
                   const SizedBox(
                     height: 16,
                   ),
-                  Row(
-                    textDirection: TextDirection.rtl,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      FilterButton(
-                          icon: Icons.location_city,
-                          label: 'الفروع',
-                          backgroundColor: Colors.grey[200],
-                          isSelected: !isDoctorsSelected, // Invert the state
-                          onTap: () {
-                            setState(() {
-                              isDoctorsSelected = false;
-                              selectionindex = 1;
-                            });
-                          }),
-                      const SizedBox(width: 8),
-                      FilterButton(
-                          icon: Icons.person,
-                          label: 'الأطباء',
-                          backgroundColor: Colors.grey[200],
-                          isSelected:
-                              isDoctorsSelected, // Use current selection state
-                          onTap: () {
-                            setState(() {
-                              isDoctorsSelected = true;
-                              selectionindex = 0;
-                            });
-                          }),
-                      const SizedBox(
-                        width: 170,
-                      ),
-                      InkWell(
-                        child: Image.asset("assets/images/filter.png"),
-                        onTap: () {
-                          showModalBottomSheet(
-                            context: context,
-                            isScrollControlled: true,
-                            builder: (context) {
-                              return const AppointmentsFilterWidget();
-                            },
-                          );
-                        },
-                      ),
-                    ],
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      textDirection: TextDirection.rtl,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(right: 2),
+                          child: FilterButton(
+                              icon: Icons.location_city,
+                              label: 'الفروع',
+                              backgroundColor: Colors.grey[200],
+                              isSelected:
+                                  !isDoctorsSelected, // Invert the state
+                              onTap: () {
+                                setState(() {
+                                  isDoctorsSelected = false;
+                                  selectionindex = 1;
+                                });
+                              }),
+                        ),
+                        const SizedBox(width: 8),
+                        FilterButton(
+                            icon: Icons.person,
+                            label: 'الأطباء',
+                            backgroundColor: Colors.grey[200],
+                            isSelected:
+                                isDoctorsSelected, // Use current selection state
+                            onTap: () {
+                              setState(() {
+                                isDoctorsSelected = true;
+                                selectionindex = 0;
+                              });
+                            }),
+                        const SizedBox(
+                          width: 170,
+                        ),
+                        // InkWell(
+                        //   child: Image.asset("assets/images/filter.png"),
+                        //   onTap: () {
+                        //     showModalBottomSheet(
+                        //       context: context,
+                        //       isScrollControlled: true,
+                        //       builder: (context) {
+                        //         return const AppointmentsFilterWidget();
+                        //       },
+                        //     );
+                        //   },
+                        // ),
+                      ],
+                    ),
                   ),
                   const SizedBox(height: 16),
                   selectionindex == 0

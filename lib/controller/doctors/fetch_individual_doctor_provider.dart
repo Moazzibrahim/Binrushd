@@ -1,21 +1,19 @@
 // ignore_for_file: avoid_print
 
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/model/doctors_model.dart';
+import 'package:flutter_application_1/model/individual_doctor_model.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+class FetchIndividualDoctorProvider with ChangeNotifier {
+  IndividualDoctorModel? _doctorsResponse;
+  IndividualDoctorModel? get doctorsResponse => _doctorsResponse;
 
-class FetchDoctorsDataProvider with ChangeNotifier {
-  DoctorsResponse? _doctorsResponse;
-
-  DoctorsResponse? get doctorsResponse => _doctorsResponse;
-
-  Future<void> fetchDoctorsData(BuildContext context) async {
-    const String url = 'https://binrushd.net/api/doctor';
+  Future<void> fetchDoctorsDataspecial(
+      BuildContext context, int? doctorid) async {
+    String url = 'https://binrushd.net/api/doctor/$doctorid';
 
     // Get the token from the LoginProvider
-    
 
     try {
       final response = await http.get(
@@ -28,7 +26,7 @@ class FetchDoctorsDataProvider with ChangeNotifier {
 
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
-        _doctorsResponse = DoctorsResponse.fromJson(data);
+        _doctorsResponse = IndividualDoctorModel.fromJson(data);
         notifyListeners(); // Notify listeners to update UI
       } else {
         throw Exception('Failed to load doctors data');

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/constants/constants.dart';
-import 'package:flutter_application_1/view/screens/Auth/forget_password/email_verification_screen.dart';
+import 'package:flutter_application_1/controller/Auth/forget_password_provider.dart';
+import 'package:provider/provider.dart';
 
 class ForgetPasswordScreen extends StatefulWidget {
   const ForgetPasswordScreen({super.key});
@@ -10,7 +11,31 @@ class ForgetPasswordScreen extends StatefulWidget {
 }
 
 class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
-  int? _selectedOption; // Holds the selected card index (0 for phone, 1 for email)
+  int?
+      _selectedOption; // Holds the selected card index (0 for phone, 1 for email)
+  final TextEditingController _emailController = TextEditingController();
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    super.dispose();
+  }
+
+  Future<void> _sendForgetPasswordRequest(BuildContext context) async {
+    final email = _emailController.text.trim();
+
+    if (email.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('يرجى إدخال البريد الإلكتروني.'),
+        ),
+      );
+      return;
+    }
+
+    await Provider.of<ForgetPasswordProvider>(context, listen: false)
+        .forgetPassword(email: email, context: context);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,40 +76,6 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                 color: Colors.grey[700],
               ),
             ),
-            const SizedBox(height: 30),
-            // Phone Option Card
-            GestureDetector(
-              onTap: () {
-                setState(() {
-                  _selectedOption = 0; // Select the phone option
-                });
-              },
-              child: Card(
-                elevation: 3,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                color: _selectedOption == 0 ? backgroundColor : Colors.white,
-                child: ListTile(
-                  leading: Icon(Icons.sms,
-                      color: _selectedOption == 0 ? Colors.white : backgroundColor),
-                  title: Text(
-                    'إرسال رمز عبر رسالة هاتفية',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: _selectedOption == 0 ? Colors.white : Colors.black,
-                    ),
-                  ),
-                  subtitle: Text(
-                    '+966 92 0000 181',
-                    style: TextStyle(
-                        color:
-                            _selectedOption == 0 ? Colors.white70 : Colors.grey[700]),
-                  ),
-                ),
-              ),
-            ),
             const SizedBox(height: 20),
             // Email Option Card
             GestureDetector(
@@ -101,7 +92,9 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                 color: _selectedOption == 1 ? backgroundColor : Colors.white,
                 child: ListTile(
                   leading: Icon(Icons.email,
-                      color: _selectedOption == 1 ? Colors.white : backgroundColor),
+                      color: _selectedOption == 1
+                          ? Colors.white
+                          : backgroundColor),
                   title: Text(
                     'إرسال رمز عبر الإيميل الخاص بك',
                     style: TextStyle(
@@ -110,39 +103,43 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                       color: _selectedOption == 1 ? Colors.white : Colors.black,
                     ),
                   ),
-                  subtitle: Text(
-                    'aa23@gmail.com',
-                    style: TextStyle(
-                        color:
-                            _selectedOption == 1 ? Colors.white70 : Colors.grey[700]),
-                  ),
                 ),
               ),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            TextField(
+              controller: _emailController,
+              decoration: InputDecoration(
+                labelText: 'البريد الإلكتروني',
+                hintText: 'example@domain.com',
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                prefixIcon: const Icon(Icons.email),
+              ),
+              keyboardType: TextInputType.emailAddress,
             ),
             const SizedBox(height: 60),
             // Send Button
             ElevatedButton(
               onPressed: _selectedOption != null
                   ? () {
-                      // Navigate to the next screen (add logic based on selection if needed)
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  const EmailConfirmationScreen()));
+                      _sendForgetPasswordRequest(context);
                     }
                   : null, // Disable button if no option is selected
               style: ElevatedButton.styleFrom(
                 backgroundColor: backgroundColor,
                 padding:
-                    const EdgeInsets.symmetric(vertical: 14, horizontal: 150),
+                    const EdgeInsets.symmetric(vertical: 15, horizontal: 135),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
                 ),
               ),
               child: const Text(
                 'إرسال',
-                style: TextStyle(fontSize: 18, color: Colors.white),
+                style: TextStyle(fontSize: 15, color: Colors.white),
               ),
             ),
           ],

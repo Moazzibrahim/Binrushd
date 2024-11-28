@@ -1,7 +1,7 @@
 // ignore_for_file: avoid_print, use_build_context_synchronously
 import 'dart:developer';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/model/login_model.dart';
+import 'package:flutter_application_1/model/auth/login_model.dart';
 import 'package:flutter_application_1/view/screens/tabs_screen.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;

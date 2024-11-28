@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/constants/constants.dart';
-import 'package:flutter_application_1/view/screens/branch_details_screen.dart';
+import 'package:flutter_application_1/controller/branches/fetch_branches_provider.dart';
+import 'package:flutter_application_1/view/screens/branches/branch_details_screen.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_application_1/controller/fetch_branches_provider.dart'; // Import your provider
+
 
 class AllBranchesScreen extends StatefulWidget {
   const AllBranchesScreen({super.key});
@@ -52,6 +53,7 @@ class _AllBranchesScreenState extends State<AllBranchesScreen> {
                         return CenterCard(
                           location: branch.address,
                           imageUrl: branch.image,
+                          id: branch.id,
                         );
                       },
                     ),
@@ -66,11 +68,13 @@ class _AllBranchesScreenState extends State<AllBranchesScreen> {
 class CenterCard extends StatelessWidget {
   final String location;
   final String imageUrl;
+  final int? id;
 
   const CenterCard({
     super.key,
     required this.location,
     required this.imageUrl,
+    this.id,
   });
 
   @override
@@ -112,7 +116,10 @@ class CenterCard extends StatelessWidget {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const BranchDetailsScreen()));
+                        builder: (context) => BranchDetailsScreen(
+                              branchId: id,
+                              image: imageUrl,
+                            )));
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: backgroundColor,
@@ -121,7 +128,7 @@ class CenterCard extends StatelessWidget {
                 ),
               ),
               child: const Text(
-                'حجز موعد',
+                'تفاصيل',
                 style: TextStyle(color: Colors.white),
               ),
             ),

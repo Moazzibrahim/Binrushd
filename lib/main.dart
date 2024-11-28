@@ -1,15 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/controller/Auth/check_forget_pass_provider.dart';
+import 'package:flutter_application_1/controller/Auth/forget_password_provider.dart';
 import 'package:flutter_application_1/controller/Auth/login_provider.dart';
 import 'package:flutter_application_1/controller/Auth/logout_provider.dart';
+import 'package:flutter_application_1/controller/Auth/reset_password_provider.dart';
 import 'package:flutter_application_1/controller/Auth/send_otp_provider.dart';
 import 'package:flutter_application_1/controller/Auth/sign_up_provider.dart';
-import 'package:flutter_application_1/controller/fetch_branches_provider.dart';
+import 'package:flutter_application_1/controller/about_us_provider.dart';
+import 'package:flutter_application_1/controller/add_to_favourites_provider.dart';
+import 'package:flutter_application_1/controller/branches/fetch_branches_provider.dart';
+import 'package:flutter_application_1/controller/branches/fetch_individual_branch_provider.dart';
+import 'package:flutter_application_1/controller/doctors/fetch_doctors_data_provider.dart';
+import 'package:flutter_application_1/controller/doctors/fetch_individual_doctor_provider.dart';
 import 'package:flutter_application_1/controller/fetch_departments_provider.dart';
-import 'package:flutter_application_1/controller/fetch_doctors_data_provider.dart';
 import 'package:flutter_application_1/controller/fetch_offers_provider.dart';
 import 'package:flutter_application_1/controller/fetch_posts_provider.dart';
 import 'package:flutter_application_1/controller/make_report_provider.dart';
 import 'package:flutter_application_1/controller/make_reservation_provider.dart';
+import 'package:flutter_application_1/controller/profile_provider.dart';
 import 'package:flutter_application_1/view/screens/onboarding/splash_screen.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
@@ -37,6 +45,14 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => MakeReservationProvider()),
         ChangeNotifierProvider(create: (_) => LogoutProvider()),
         ChangeNotifierProvider(create: (_) => MakeReportProvider()),
+        ChangeNotifierProvider(create: (_) => AddToFavouritesProvider()),
+        ChangeNotifierProvider(create: (_) => FetchIndividualDoctorProvider()),
+        ChangeNotifierProvider(create: (_) => FetchIndividualBranchProvider()),
+        ChangeNotifierProvider(create: (_) => AboutUsProvider()),
+        ChangeNotifierProvider(create: (_) => ProfileProvider()),
+        ChangeNotifierProvider(create: (_) => ResetPasswordProvider()),
+        ChangeNotifierProvider(create: (_) => ForgetPasswordProvider()),
+        ChangeNotifierProvider(create: (_) => CheckForgetPassProvider()),
       ],
       child: ScreenUtilInit(
         designSize: const Size(375, 812), // Base design dimensions
