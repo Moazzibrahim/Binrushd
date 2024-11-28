@@ -3,7 +3,7 @@ import 'package:flutter_application_1/constants/constants.dart';
 import 'package:flutter_application_1/controller/Auth/login_provider.dart';
 import 'package:flutter_application_1/view/screens/Auth/forget_password/forget_password_screen.dart';
 import 'package:flutter_application_1/view/screens/Auth/sign_up_screen.dart';
-import 'package:flutter_application_1/view/screens/tabs_screen.dart';
+import 'package:flutter_application_1/view/screens/home_screen.dart';
 import 'package:provider/provider.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -142,30 +142,6 @@ class _LoginScreenState extends State<LoginScreen> {
                 ],
               ),
               const SizedBox(height: 16),
-              const Center(child: Text('أو من خلال')),
-              const SizedBox(height: 16),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  InkWell(
-                    child: Image.asset(
-                      'assets/images/google.png',
-                    ),
-                    onTap: () {},
-                  ),
-                  const SizedBox(
-                    width: 7,
-                  ),
-                  IconButton(
-                    icon: const Icon(Icons.apple, color: Colors.black),
-                    onPressed: () {},
-                  ),
-                  IconButton(
-                    icon: const Icon(Icons.facebook, color: Colors.blue),
-                    onPressed: () {},
-                  ),
-                ],
-              ),
             ],
           ),
         ),
@@ -193,7 +169,7 @@ class _LoginScreenState extends State<LoginScreen> {
         } else if (index == 1) {
           // Guest login action
           Navigator.push(context,
-              MaterialPageRoute(builder: (context) => const TabsScreen()));
+              MaterialPageRoute(builder: (context) => const HomePage()));
         } else if (index == 2) {
           Navigator.push(context,
               MaterialPageRoute(builder: (context) => const SignUpScreen()));

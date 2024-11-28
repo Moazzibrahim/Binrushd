@@ -1,37 +1,53 @@
-// ignore_for_file: avoid_print
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/model/profile_model.dart';
 import 'package:http/http.dart' as http;
+import 'package:flutter_application_1/model/profile_model.dart';
 
 class ProfileProvider with ChangeNotifier {
   AuthUserResponse? _authUserResponse;
   AuthUserResponse? get authUserResponse => _authUserResponse;
 
-  Future<void> postProfile({
-    required String? token,
-    required BuildContext context, // Make context required
+  bool _isLoading = false;
+  bool get isLoading => _isLoading;
+
+  String? _errorMessage;
+  String? get errorMessage => _errorMessage;
+
+  Future<void> fetchProfile({
+    required String token,
+    required BuildContext context,
   }) async {
     final url = Uri.parse('https://binrushd.net/api/auth/profile');
 
+    _isLoading = true;
+    _errorMessage = null;
+    notifyListeners();
+
     try {
-      // Send the POST request
       final response = await http.post(
         url,
         headers: {
           'Content-Type': 'application/json',
           'Authorization': 'Bearer $token',
         },
-        body: jsonEncode({}),
       );
 
       if (response.statusCode == 200) {
-        print('Request successful: ${response.body}');
+        final responseData = jsonDecode(response.body);
+        _authUserResponse = AuthUserResponse.fromJson(responseData);
+        notifyListeners();
       } else {
-        print('Request failed: ${response.statusCode}');
+        final errorResponse = jsonDecode(response.body);
+        _errorMessage = errorResponse['message'] ?? 'An error occurred';
+        notifyListeners();
       }
     } catch (e) {
+      _errorMessage = 'Failed to connect to the server. Please try again later.';
       print('Error occurred: $e');
+      notifyListeners();
+    } finally {
+      _isLoading = false;
+      notifyListeners();
     }
   }
 }

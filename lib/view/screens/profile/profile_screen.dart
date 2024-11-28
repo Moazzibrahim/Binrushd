@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/constants/constants.dart';
 import 'package:flutter_application_1/controller/Auth/login_provider.dart';
 import 'package:flutter_application_1/controller/Auth/logout_provider.dart';
-import 'package:flutter_application_1/view/screens/profile/contact_us_screen.dart';
+import 'package:flutter_application_1/view/screens/appointments/my_appointments_screen.dart';
+import 'package:flutter_application_1/view/screens/contact_us_screen.dart';
+import 'package:flutter_application_1/view/screens/my_favourites_screen.dart';
 import 'package:flutter_application_1/view/screens/profile/my_profile_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -53,7 +55,11 @@ class ProfileScreens extends StatelessWidget {
               text: 'الحجوزات',
               color: backgroundColor,
               onTap: () {
-                // Add navigation or functionality here
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const MyAppointmentsScreen()),
+                );
               },
             ),
             buildProfileMenuItem(
@@ -62,11 +68,16 @@ class ProfileScreens extends StatelessWidget {
               color: backgroundColor,
               onTap: () {
                 // Add navigation or functionality here
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const MyFavouritesScreen()),
+                );
               },
             ),
             buildProfileMenuItem(
-              icon: Icons.settings,
-              text: 'الاعدادات والخصوصية',
+              icon: Icons.work_history,
+              text: ' من نحن',
               color: backgroundColor,
               onTap: () {
                 // Add navigation or functionality here

@@ -1,11 +1,28 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/constants/constants.dart';
+import 'package:flutter_application_1/controller/Auth/login_provider.dart';
+import 'package:flutter_application_1/controller/profile_provider.dart';
+import 'package:provider/provider.dart';
 
 class MyProfileScreen extends StatelessWidget {
   const MyProfileScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    // Fetch the ProfileProvider
+    final profileProvider = Provider.of<ProfileProvider>(context);
+    final logprov = Provider.of<LoginProvider>(context, listen: false);
+    final token = logprov.token;
+
+    // Call the API to fetch profile data when the screen is built
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (profileProvider.authUserResponse == null) {
+        profileProvider.fetchProfile(
+          token: token!, // Replace with the actual token
+          context: context,
+        );
+      }
+    });
+
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
@@ -36,77 +53,34 @@ class MyProfileScreen extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Center(
-                              child: Stack(
-                                alignment: Alignment.center,
-                                children: [
-                                  const CircleAvatar(
-                                    radius: 50,
-                                    backgroundImage:
-                                        AssetImage('assets/profile.jpg'),
-                                  ),
-                                  Positioned(
-                                    bottom: -10,
-                                    right: -4,
-                                    child: IconButton(
-                                      icon: Icon(
-                                        Icons.camera_alt,
-                                        color: backgroundColor,
-                                      ),
-                                      onPressed: () {},
-                                      iconSize: 28,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
                             const SizedBox(height: 20),
-                            buildTextField(
-                              label: 'الاسم بالكامل',
-                              hint: 'محمد جابر',
-                              icon: Icons.person,
-                            ),
-                            const SizedBox(height: 10),
-                            buildTextField(
-                              label: 'الإيميل',
-                              hint: 'example@mail.com',
-                              icon: Icons.email,
-                            ),
-                            const SizedBox(height: 10),
-                            buildTextField(
-                              label: 'رقم الهاتف',
-                              hint: '+20123456789',
-                              icon: Icons.phone,
-                            ),
-                            const SizedBox(height: 10),
-                            buildTextField(
-                              label: 'العنوان',
-                              hint: 'المدينة - المنطقة',
-                              icon: Icons.location_on,
-                            ),
-                            const SizedBox(height: 10),
-                            buildTextField(
-                              label: 'كلمة السر',
-                              hint: '******',
-                              icon: Icons.lock,
-                              obscureText: true,
-                            ),
+                            // Build text fields with fetched data
+                            if (profileProvider.authUserResponse != null) ...[
+                              buildTextField(
+                                label: 'الاسم بالكامل',
+                                hint:
+                                    '${profileProvider.authUserResponse!.data.fname} ${profileProvider.authUserResponse!.data.lname}',
+                                icon: Icons.person,
+                              ),
+                              const SizedBox(height: 10),
+                              buildTextField(
+                                label: 'الإيميل',
+                                hint: profileProvider
+                                    .authUserResponse!.data.email,
+                                icon: Icons.email,
+                              ),
+                              const SizedBox(height: 10),
+                              buildTextField(
+                                label: 'رقم الهاتف',
+                                hint: profileProvider
+                                    .authUserResponse!.data.mobile,
+                                icon: Icons.phone,
+                              ),
+                            ] else
+                              const Center(
+                                child: CircularProgressIndicator(),
+                              ),
                           ],
-                        ),
-                      ),
-                      const Spacer(),
-                      Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: ElevatedButton(
-                          onPressed: () {},
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: backgroundColor,
-                            minimumSize: const Size(double.infinity, 50),
-                          ),
-                          child: const Text(
-                            'حفظ التغييرات',
-                            style: TextStyle(color: Colors.white, fontSize: 16),
-                          ),
                         ),
                       ),
                     ],
@@ -135,6 +109,7 @@ class MyProfileScreen extends StatelessWidget {
         ),
         const SizedBox(height: 8),
         TextField(
+          enabled: false, // Makes the TextField read-only
           obscureText: obscureText,
           textDirection: TextDirection.rtl,
           decoration: InputDecoration(

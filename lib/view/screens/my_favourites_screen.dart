@@ -2,11 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/constants/constants.dart';
-import 'package:flutter_application_1/model/auth/login_model.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_application_1/controller/Auth/login_provider.dart';
 import 'package:flutter_application_1/controller/add_to_favourites_provider.dart';
-import 'package:flutter_application_1/view/screens/onboarding/appointments_details_screen.dart';
 
 class MyFavouritesScreen extends StatelessWidget {
   const MyFavouritesScreen({super.key});

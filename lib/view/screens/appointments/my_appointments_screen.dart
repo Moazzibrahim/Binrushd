@@ -1,11 +1,8 @@
 // ignore_for_file: library_private_types_in_public_api, avoid_print
 
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/constants/constants.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_application_1/controller/Auth/login_provider.dart';
-import 'package:flutter_application_1/controller/add_to_favourites_provider.dart';
-import 'package:flutter_application_1/view/screens/onboarding/appointments_details_screen.dart';
 
 class MyAppointmentsScreen extends StatelessWidget {
   const MyAppointmentsScreen({super.key});
@@ -43,7 +40,8 @@ class MyAppointmentsScreen extends StatelessWidget {
             )
           : Consumer<LoginProvider>(
               builder: (context, provider, child) {
-                final reservations = provider.loginResponse?.data.user.reservations ?? [];
+                final reservations =
+                    provider.loginResponse?.data.user.reservations ?? [];
                 if (reservations.isEmpty) {
                   return const Center(
                     child: Text(
@@ -87,7 +85,6 @@ class MyAppointmentsScreen extends StatelessWidget {
   }
 }
 
-
 class DoctorCard extends StatefulWidget {
   final String name;
   final String location;
@@ -113,9 +110,6 @@ class _DoctorCardState extends State<DoctorCard> {
 
   @override
   Widget build(BuildContext context) {
-    final favprovider =
-        Provider.of<AddToFavouritesProvider>(context, listen: false);
-
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
@@ -133,44 +127,6 @@ class _DoctorCardState extends State<DoctorCard> {
         children: [
           Row(
             children: [
-              // Favorite Button
-              IconButton(
-                icon: Icon(
-                  isFavorite ? Icons.favorite : Icons.favorite_border,
-                  color: isFavorite ? backgroundColor : Colors.grey,
-                ),
-                onPressed: () async {
-                  if (isFavorite) {
-                    // Remove from favorites
-                    try {
-                      await favprovider.removeFav(
-                        context: context,
-                        doctorId: widget.docId,
-                        token: widget.token,
-                      );
-                      setState(() {
-                        isFavorite = false;
-                      });
-                    } catch (e) {
-                      print("Error removing from favorites: $e");
-                    }
-                  } else {
-                    // Add to favorites
-                    try {
-                      await favprovider.addToFav(
-                        context: context,
-                        doctorId: widget.docId,
-                        token: widget.token,
-                      );
-                      setState(() {
-                        isFavorite = true;
-                      });
-                    } catch (e) {
-                      print("Error adding to favorites: $e");
-                    }
-                  }
-                },
-              ),
               // Doctor Details
               Expanded(
                 child: Column(
@@ -212,40 +168,6 @@ class _DoctorCardState extends State<DoctorCard> {
                 ),
               ),
             ],
-          ),
-          const SizedBox(height: 12),
-          // View Details Button
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: ElevatedButton.icon(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: backgroundColor, // Use your defined color
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
-                ),
-              ),
-              onPressed: () {
-                // Navigate to appointment details
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) =>
-                        const AppointmentDetailsScreen(), // Pass reservation if needed
-                  ),
-                );
-              },
-              icon: const Icon(
-                Icons.keyboard_arrow_down,
-                size: 20,
-                color: Colors.white,
-              ),
-              label: const Text(
-                "عرض التفاصيل",
-                style: TextStyle(fontSize: 14, color: Colors.white),
-              ),
-            ),
           ),
         ],
       ),

@@ -53,6 +53,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => ResetPasswordProvider()),
         ChangeNotifierProvider(create: (_) => ForgetPasswordProvider()),
         ChangeNotifierProvider(create: (_) => CheckForgetPassProvider()),
+        ChangeNotifierProvider(create: (_) => MakeReportProvider()),
       ],
       child: ScreenUtilInit(
         designSize: const Size(375, 812), // Base design dimensions

@@ -631,33 +631,6 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        selectedItemColor: backgroundColor,
-        unselectedItemColor: Colors.grey,
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: "حسابي",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.calendar_today),
-            label: "الحجوزات",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.article),
-            label: "المقالات",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: "الرئيسية",
-          ),
-        ],
-        currentIndex: 3,
-        onTap: (index) {
-          // Handle navigation logic here
-        },
-      ),
     );
   }
 }
