@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/constants/constants.dart';
 import 'package:flutter_application_1/controller/Auth/login_provider.dart';
 import 'package:flutter_application_1/controller/Auth/logout_provider.dart';
+import 'package:flutter_application_1/view/screens/my_favourites_screen.dart';
 import 'package:provider/provider.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -37,10 +38,18 @@ class ProfileScreen extends StatelessWidget {
               text: 'الحجوزات',
               color: backgroundColor,
             ),
-            buildProfileMenuItem(
-              icon: Icons.favorite,
-              text: 'المفضلة',
-              color: backgroundColor,
+            InkWell(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const MyFavouritesScreen()));
+              },
+              child: buildProfileMenuItem(
+                icon: Icons.favorite,
+                text: 'المفضلة',
+                color: backgroundColor,
+              ),
             ),
             buildProfileMenuItem(
               icon: Icons.settings,

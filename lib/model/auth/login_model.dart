@@ -49,6 +49,7 @@ class User {
   final String updatedAt;
   final String token;
   final List<Reservation> reservations;
+  final List<Favorite> favourites;
 
   User({
     required this.id,
@@ -62,6 +63,7 @@ class User {
     required this.updatedAt,
     required this.token,
     required this.reservations,
+    required this.favourites,
   });
 
   factory User.fromJson(Map<String, dynamic> json) {
@@ -79,6 +81,9 @@ class User {
       reservations: (json['reservations'] as List)
           .map((e) => Reservation.fromJson(e))
           .toList(),
+      favourites: (json['favorites'] as List)
+          .map((e) => Favorite.fromJson(e))
+          .toList(),
     );
   }
 
@@ -95,6 +100,7 @@ class User {
       'updated_at': updatedAt,
       'token': token,
       'reservations': reservations.map((e) => e.toJson()).toList(),
+      'favorites': favourites.map((e) => e.toJson()).toList(),
     };
   }
 }
@@ -302,9 +308,9 @@ class Branch {
 class Doctor {
   final int? id;
   final String? fname;
-  final String ?lname;
-  final String ?image;
-  final int ?highlighted;
+  final String? lname;
+  final String? image;
+  final int? highlighted;
 
   Doctor({
     required this.id,
@@ -331,6 +337,46 @@ class Doctor {
       'lname': lname,
       'image': image,
       'highligthed': highlighted,
+    };
+  }
+}
+
+class Favorite {
+  final String fname;
+  final String lname;
+  final String speciality;
+  final String degree;
+  final int id;
+  final String image;
+
+  Favorite({
+    required this.fname,
+    required this.speciality,
+    required this.degree,
+    required this.lname,
+    required this.id,
+    required this.image,
+  });
+
+  factory Favorite.fromJson(Map<String, dynamic> json) {
+    return Favorite(
+      fname: json['fname'],
+      lname: json['lname'],
+      speciality: json['Speciality'],
+      degree: json['Degree'],
+      id: json['id'],
+      image: json['image'],
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'fname': fname,
+      'lname': lname,
+      'Speciality': speciality,
+      'Degree': degree,
+      'id': id,
+      'image': image,
     };
   }
 }

@@ -2,13 +2,14 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/constants/constants.dart';
+import 'package:flutter_application_1/model/auth/login_model.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_application_1/controller/Auth/login_provider.dart';
 import 'package:flutter_application_1/controller/add_to_favourites_provider.dart';
 import 'package:flutter_application_1/view/screens/onboarding/appointments_details_screen.dart';
 
-class MyAppointmentsScreen extends StatelessWidget {
-  const MyAppointmentsScreen({super.key});
+class MyFavouritesScreen extends StatelessWidget {
+  const MyFavouritesScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +20,7 @@ class MyAppointmentsScreen extends StatelessWidget {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: const Text(
-          'حجوزاتي',
+          'المفضلة',
           style: TextStyle(
             fontFamily: 'Arial', // Change to your preferred Arabic font
             fontWeight: FontWeight.bold,
@@ -43,11 +44,12 @@ class MyAppointmentsScreen extends StatelessWidget {
             )
           : Consumer<LoginProvider>(
               builder: (context, provider, child) {
-                final reservations = provider.loginResponse?.data.user.reservations ?? [];
-                if (reservations.isEmpty) {
+                final favourites =
+                    provider.loginResponse?.data.user.favourites ?? [];
+                if (favourites.isEmpty) {
                   return const Center(
                     child: Text(
-                      "لا توجد حجوزات حاليًا",
+                      "لا يوجد  حاليًا",
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
@@ -58,23 +60,23 @@ class MyAppointmentsScreen extends StatelessWidget {
                 }
                 return ListView.builder(
                   padding: const EdgeInsets.all(16.0),
-                  itemCount: reservations.length,
+                  itemCount: favourites.length,
                   itemBuilder: (context, index) {
-                    final reservation = reservations[index];
-                    final doctor = reservation.doctor;
-                    final doctorName = doctor != null
-                        ? "${doctor.fname} ${doctor.lname}"
+                    final favoruite = favourites[index];
+                    final doctorName = favoruite != null
+                        ? "${favoruite.fname} ${favoruite.lname}"
                         : "Unknown Doctor";
-                    final docid = doctor?.id ?? 0;
+                    final docid = favoruite?.id ?? 0;
 
                     return Column(
                       children: [
                         DoctorCard(
-                          name: reservation.branch.name,
+                          degree: favoruite.degree,
                           doctorname: doctorName,
-                          location: reservation.branch.address,
+                          speciality: favoruite.speciality,
                           token: token,
                           docId: docid,
+                          image: favoruite.image,
                         ),
                         const SizedBox(height: 16.0),
                       ],
@@ -87,19 +89,20 @@ class MyAppointmentsScreen extends StatelessWidget {
   }
 }
 
-
 class DoctorCard extends StatefulWidget {
-  final String name;
-  final String location;
+  final String degree;
+  final String speciality;
   final String? doctorname;
+  final String? image;
   final int? docId;
   final String token;
 
   const DoctorCard({
     super.key,
-    required this.name,
-    required this.location,
+    required this.degree,
+    required this.speciality,
     required this.doctorname,
+    required this.image,
     this.docId,
     required this.token,
   });
@@ -109,7 +112,7 @@ class DoctorCard extends StatefulWidget {
 }
 
 class _DoctorCardState extends State<DoctorCard> {
-  bool isFavorite = false;
+  bool isFavorite = true;
 
   @override
   Widget build(BuildContext context) {
@@ -176,13 +179,10 @@ class _DoctorCardState extends State<DoctorCard> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    Text(
-                      widget.name,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
-                      ),
-                      textAlign: TextAlign.right,
+                    Image.network(
+                      widget.image!,
+                      height: 60,
+                      width: 70,
                     ),
                     const SizedBox(height: 4),
                     Text(
@@ -194,58 +194,27 @@ class _DoctorCardState extends State<DoctorCard> {
                       textAlign: TextAlign.right,
                     ),
                     const SizedBox(height: 4),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Text(
-                            widget.location,
-                            style: const TextStyle(
-                              color: Colors.grey,
-                              fontSize: 12,
-                            ),
-                            textAlign: TextAlign.right,
-                          ),
-                        ),
-                      ],
+                    Text(
+                      widget.speciality,
+                      style: const TextStyle(
+                          fontWeight: FontWeight.w700,
+                          fontSize: 14,
+                          color: Colors.grey),
+                      textAlign: TextAlign.right,
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      widget.degree,
+                      style: const TextStyle(
+                          fontWeight: FontWeight.w700,
+                          fontSize: 14,
+                          color: Colors.grey),
+                      textAlign: TextAlign.right,
                     ),
                   ],
                 ),
               ),
             ],
-          ),
-          const SizedBox(height: 12),
-          // View Details Button
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: ElevatedButton.icon(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: backgroundColor, // Use your defined color
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
-                ),
-              ),
-              onPressed: () {
-                // Navigate to appointment details
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) =>
-                        const AppointmentDetailsScreen(), // Pass reservation if needed
-                  ),
-                );
-              },
-              icon: const Icon(
-                Icons.keyboard_arrow_down,
-                size: 20,
-                color: Colors.white,
-              ),
-              label: const Text(
-                "عرض التفاصيل",
-                style: TextStyle(fontSize: 14, color: Colors.white),
-              ),
-            ),
           ),
         ],
       ),
