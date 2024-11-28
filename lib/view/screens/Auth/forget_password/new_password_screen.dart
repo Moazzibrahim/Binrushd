@@ -1,10 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/constants/constants.dart';
+import 'package:flutter_application_1/controller/Auth/reset_password_provider.dart';
+import 'package:provider/provider.dart';
 
 class NewPasswordScreen extends StatelessWidget {
-  const NewPasswordScreen({super.key});
+  final String? tokens;
+  const NewPasswordScreen({super.key, this.tokens});
+
   @override
   Widget build(BuildContext context) {
+    final TextEditingController passwordController = TextEditingController();
+    final TextEditingController confirmPasswordController =
+        TextEditingController();
+
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -40,25 +48,64 @@ class NewPasswordScreen extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 20),
-            buildLabeledTextField(' ادخل كلمة سر جديدة', '●●●●●●●', Icons.lock,
-                obscureText: true),
+            buildLabeledTextField(
+              label: 'ادخل كلمة سر جديدة',
+              controller: passwordController,
+              icon: Icons.lock,
+              obscureText: true,
+            ),
             const SizedBox(height: 20),
-            buildLabeledTextField(' تأكيد كلمة السر', '●●●●●●●', Icons.lock,
-                obscureText: true),
-            const SizedBox(height: 180),
+            buildLabeledTextField(
+              label: 'تأكيد كلمة السر',
+              controller: confirmPasswordController,
+              icon: Icons.lock,
+              obscureText: true,
+            ),
+            const SizedBox(height: 120),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () async {
+                final password = passwordController.text.trim();
+                final confirmPassword = confirmPasswordController.text.trim();
+
+                if (password.isEmpty || confirmPassword.isEmpty) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('يرجى إدخال كلمة المرور وتأكيدها.'),
+                    ),
+                  );
+                  return;
+                }
+
+                if (password != confirmPassword) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('كلمتا المرور غير متطابقتين.'),
+                    ),
+                  );
+                  return;
+                }
+
+                // Call ResetPasswordProvider
+                await Provider.of<ResetPasswordProvider>(context, listen: false)
+                    .resetPasswordP(
+                  password: password,
+                  confPassword: confirmPassword,
+                  token: tokens,
+                  context: context,
+                );
+              },
               style: ElevatedButton.styleFrom(
                 shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10)),
+                  borderRadius: BorderRadius.circular(10),
+                ),
                 backgroundColor: backgroundColor,
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 150, vertical: 10),
+                    const EdgeInsets.symmetric(horizontal: 140, vertical: 10),
                 textStyle: const TextStyle(fontSize: 16),
               ),
               child: const Text(
                 'حفظ',
-                style: TextStyle(color: Colors.white, fontSize: 18),
+                style: TextStyle(color: Colors.white, fontSize: 16),
               ),
             ),
           ],
@@ -67,8 +114,12 @@ class NewPasswordScreen extends StatelessWidget {
     );
   }
 
-  Widget buildLabeledTextField(String label, String hintText, IconData icon,
-      {bool obscureText = false}) {
+  Widget buildLabeledTextField({
+    required String label,
+    required TextEditingController controller,
+    required IconData icon,
+    bool obscureText = false,
+  }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
@@ -82,10 +133,11 @@ class NewPasswordScreen extends StatelessWidget {
         ),
         const SizedBox(height: 5),
         TextField(
+          controller: controller,
           textAlign: TextAlign.right,
           obscureText: obscureText,
           decoration: InputDecoration(
-            hintText: hintText,
+            hintText: '●●●●●●●',
             hintStyle: const TextStyle(color: Colors.grey),
             suffixIcon: Icon(icon),
             border: const OutlineInputBorder(),

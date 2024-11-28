@@ -1,6 +1,7 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, use_build_context_synchronously
 
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/view/screens/Auth/forget_password/check_forget_password_screen.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -26,6 +27,12 @@ class ForgetPasswordProvider with ChangeNotifier {
 
       if (response.statusCode == 200) {
         print('Request successful: ${response.body}');
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => CheckForgetPasswordScreen(emaill: email),
+          ),
+        );
       } else {
         print('Request failed: ${response.statusCode}');
       }

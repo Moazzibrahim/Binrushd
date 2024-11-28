@@ -190,6 +190,13 @@ class _MakeAppointmentScreenState extends State<MakeAppointmentScreen> {
     final provider =
         Provider.of<MakeReservationProvider>(context, listen: false);
     final loginProvider = Provider.of<LoginProvider>(context, listen: false);
+    if (loginProvider.token == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text(' يرجي التسجيل بحساب شخصي لكي تحجز معاد '),
+        ),
+      );
+    }
 
     // Make the API call
     provider.sendPostRequest(

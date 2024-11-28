@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/controller/Auth/check_forget_pass_provider.dart';
 import 'package:flutter_application_1/controller/Auth/forget_password_provider.dart';
 import 'package:flutter_application_1/controller/Auth/login_provider.dart';
 import 'package:flutter_application_1/controller/Auth/logout_provider.dart';
@@ -51,6 +52,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => ProfileProvider()),
         ChangeNotifierProvider(create: (_) => ResetPasswordProvider()),
         ChangeNotifierProvider(create: (_) => ForgetPasswordProvider()),
+        ChangeNotifierProvider(create: (_) => CheckForgetPassProvider()),
       ],
       child: ScreenUtilInit(
         designSize: const Size(375, 812), // Base design dimensions
