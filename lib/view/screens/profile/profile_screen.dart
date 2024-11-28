@@ -6,8 +6,8 @@ import 'package:flutter_application_1/view/screens/profile/contact_us_screen.dar
 import 'package:flutter_application_1/view/screens/profile/my_profile_screen.dart';
 import 'package:provider/provider.dart';
 
-class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({super.key});
+class ProfileScreens extends StatelessWidget {
+  const ProfileScreens({super.key});
 
   @override
   Widget build(BuildContext context) {
