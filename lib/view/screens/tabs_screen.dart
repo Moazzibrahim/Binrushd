@@ -3,7 +3,7 @@ import 'package:flutter_application_1/constants/constants.dart';
 import 'package:flutter_application_1/view/screens/all_articles_screen.dart';
 import 'package:flutter_application_1/view/screens/home_screen.dart';
 import 'package:flutter_application_1/view/screens/my_appointments_screen.dart';
-import 'package:flutter_application_1/view/screens/profile_screen.dart';
+import 'package:flutter_application_1/view/screens/profile/profile_screen.dart';
 
 class TabsScreen extends StatefulWidget {
   const TabsScreen({super.key});
