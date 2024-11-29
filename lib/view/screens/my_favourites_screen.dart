@@ -32,7 +32,7 @@ class MyFavouritesScreen extends StatelessWidget {
       body: token == null
           ? const Center(
               child: Text(
-                "يجب التسجيل لتري حجوزاتك",
+                "يجب التسجيل لتري المفضلة",
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
