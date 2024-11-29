@@ -3,22 +3,37 @@ import 'package:flutter_application_1/constants/constants.dart';
 import 'package:flutter_application_1/controller/Auth/sign_up_provider.dart';
 import 'package:provider/provider.dart';
 
-class SignUpScreen extends StatelessWidget {
+class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
+
+  @override
+  _SignUpScreenState createState() => _SignUpScreenState();
+}
+
+class _SignUpScreenState extends State<SignUpScreen> {
+  // ValueNotifiers to manage password visibility
+  ValueNotifier<bool> _passwordVisible = ValueNotifier<bool>(false);
+  ValueNotifier<bool> _confirmPasswordVisible = ValueNotifier<bool>(false);
+
+  final TextEditingController firstNameController = TextEditingController();
+  final TextEditingController lastNameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController phoneController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController confirmPasswordController = TextEditingController();
+
+  final formKey = GlobalKey<FormState>();
+
+  @override
+  void dispose() {
+    _passwordVisible.dispose();
+    _confirmPasswordVisible.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     final signUpProvider = Provider.of<SignUpProvider>(context);
-
-    final TextEditingController firstNameController = TextEditingController();
-    final TextEditingController lastNameController = TextEditingController();
-    final TextEditingController emailController = TextEditingController();
-    final TextEditingController phoneController = TextEditingController();
-    final TextEditingController passwordController = TextEditingController();
-    final TextEditingController confirmPasswordController =
-        TextEditingController();
-
-    final formKey = GlobalKey<FormState>();
 
     return Scaffold(
       appBar: AppBar(
@@ -107,12 +122,11 @@ class SignUpScreen extends StatelessWidget {
                   },
                 ),
                 const SizedBox(height: 15),
-                buildLabeledTextField(
+                buildPasswordField(
                   'كلمة السر',
                   '●●●●●●●',
-                  Icons.lock,
+                  Icons.visibility,
                   controller: passwordController,
-                  obscureText: true,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'كلمة السر مطلوبة';
@@ -124,12 +138,11 @@ class SignUpScreen extends StatelessWidget {
                   },
                 ),
                 const SizedBox(height: 15),
-                buildLabeledTextField(
+                buildPasswordField(
                   'تاكيد كلمة السر',
                   '●●●●●●●',
-                  Icons.lock,
+                  Icons.visibility,
                   controller: confirmPasswordController,
-                  obscureText: true,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'تأكيد كلمة السر مطلوب';
@@ -181,6 +194,41 @@ class SignUpScreen extends StatelessWidget {
     );
   }
 
+  Widget buildPasswordField(
+    String label,
+    String hintText,
+    IconData icon, {
+    required TextEditingController controller,
+    required String? Function(String?) validator,
+  }) {
+    return ValueListenableBuilder<bool>(
+      valueListenable: label == 'كلمة السر' ? _passwordVisible : _confirmPasswordVisible,
+      builder: (context, isPasswordVisible, child) {
+        return buildLabeledTextField(
+          label,
+          hintText,
+          icon,
+          controller: controller,
+          obscureText: !isPasswordVisible,
+          validator: validator,
+          suffixIcon: IconButton(
+            icon: Icon(
+              isPasswordVisible ? Icons.visibility_off : Icons.visibility,
+              color: Colors.grey,
+            ),
+            onPressed: () {
+              if (label == 'كلمة السر') {
+                _passwordVisible.value = !isPasswordVisible;
+              } else {
+                _confirmPasswordVisible.value = !isPasswordVisible;
+              }
+            },
+          ),
+        );
+      },
+    );
+  }
+
   Widget buildLabeledTextField(
     String label,
     String hintText,
@@ -188,6 +236,7 @@ class SignUpScreen extends StatelessWidget {
     bool obscureText = false,
     TextEditingController? controller,
     String? Function(String?)? validator,
+    Widget? suffixIcon,
   }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.end,
@@ -206,10 +255,23 @@ class SignUpScreen extends StatelessWidget {
           textAlign: TextAlign.right,
           obscureText: obscureText,
           decoration: InputDecoration(
+            contentPadding:
+                const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(15), // Rounded border
+              borderSide: const BorderSide(color: Colors.grey, width: 1),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(15),
+              borderSide: const BorderSide(color: Colors.grey, width: 1),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(15),
+              borderSide: const BorderSide(color: Colors.grey, width: 1.5),
+            ),
             hintText: hintText,
             hintStyle: const TextStyle(color: Colors.grey),
-            suffixIcon: Icon(icon),
-            border: const OutlineInputBorder(),
+            suffixIcon: suffixIcon ?? Icon(icon),
           ),
           validator: validator,
         ),
