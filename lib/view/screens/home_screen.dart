@@ -13,7 +13,6 @@ import 'package:flutter_application_1/view/screens/all_articles_screen.dart';
 import 'package:flutter_application_1/view/screens/appointments/make_appointments_screen.dart';
 import 'package:flutter_application_1/view/screens/branches/all_branches_screen.dart';
 import 'package:flutter_application_1/view/screens/doctors_list_screen.dart';
-import 'package:flutter_application_1/view/screens/notifications_screen.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 

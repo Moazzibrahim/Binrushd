@@ -161,7 +161,7 @@ class _DoctorsListScreenState extends State<DoctorsListScreen> {
                             backgroundColor: backgroundColor,
                             padding: const EdgeInsets.symmetric(
                               vertical: 12,
-                              horizontal: 100,
+                              horizontal: 90,
                             ),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10),
