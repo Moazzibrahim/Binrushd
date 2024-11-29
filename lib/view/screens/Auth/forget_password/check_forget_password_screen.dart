@@ -83,7 +83,7 @@ class _EmailConfirmationScreenState extends State<CheckForgetPasswordScreen> {
             Image.asset("assets/images/email_confirmation.png"),
             const SizedBox(height: 20),
             Text(
-              'ادخل الرمز التعريفي المرسل',
+              '  ادخل الرمز التعريفى المرسل الى البريد الالكترونى',
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 16,

@@ -16,6 +16,8 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   bool _isChecked = false;
   int _selectedButtonIndex = -1;
+  bool _isPasswordVisible =
+      false; // State variable to toggle password visibility
 
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -41,22 +43,38 @@ class _LoginScreenState extends State<LoginScreen> {
               const Text(
                 'اسم المستخدم',
                 style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.black,
-                    fontWeight: FontWeight.w800),
+                  fontSize: 16,
+                  color: Colors.black,
+                  fontWeight: FontWeight.w800,
+                ),
                 textAlign: TextAlign.end,
               ),
               const SizedBox(height: 8),
               TextFormField(
                 controller: _emailController,
                 textAlign: TextAlign.right,
-                decoration: const InputDecoration(
+                decoration: InputDecoration(
                   hintText: 'ادخل اسمك بالكامل',
-                  suffixIcon: Icon(
+                  hintStyle: const TextStyle(color: Colors.grey),
+                  suffixIcon: const Icon(
                     Icons.person,
                     color: Colors.grey,
                   ),
-                  border: OutlineInputBorder(),
+                  contentPadding:
+                      const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(15), // Rounded border
+                    borderSide: const BorderSide(color: Colors.grey, width: 1),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(15),
+                    borderSide: const BorderSide(color: Colors.grey, width: 1),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(15),
+                    borderSide:
+                        const BorderSide(color: Colors.grey, width: 1.5),
+                  ),
                 ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -69,22 +87,49 @@ class _LoginScreenState extends State<LoginScreen> {
               const Text(
                 'كلمة السر',
                 style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.black,
-                    fontWeight: FontWeight.w800),
+                  fontSize: 16,
+                  color: Colors.black,
+                  fontWeight: FontWeight.w800,
+                ),
                 textAlign: TextAlign.end,
               ),
               const SizedBox(height: 8),
               TextFormField(
                 controller: _passwordController,
                 textAlign: TextAlign.right,
-                obscureText: true,
-                decoration: const InputDecoration(
-                  suffixIcon: Icon(
-                    Icons.visibility,
-                    color: Colors.grey,
+                obscureText: !_isPasswordVisible,
+                decoration: InputDecoration(
+                  hintText: "●●●●●●●",
+                  hintStyle: const TextStyle(color: Colors.grey),
+                  prefixIcon: IconButton(
+                    icon: Icon(
+                      _isPasswordVisible
+                          ? Icons.visibility_off
+                          : Icons.visibility,
+                      color: Colors.grey,
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        _isPasswordVisible =
+                            !_isPasswordVisible; // Toggle the state
+                      });
+                    },
                   ),
-                  border: OutlineInputBorder(),
+                  contentPadding:
+                      const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(15), // Rounded border
+                    borderSide: const BorderSide(color: Colors.grey, width: 1),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(15),
+                    borderSide: const BorderSide(color: Colors.grey, width: 1),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(15),
+                    borderSide:
+                        const BorderSide(color: Colors.grey, width: 1.5),
+                  ),
                 ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -117,6 +162,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   Row(
                     children: [
+                      const Text("تذكرني"),
                       Checkbox(
                           value: _isChecked,
                           onChanged: (val) {
@@ -124,7 +170,6 @@ class _LoginScreenState extends State<LoginScreen> {
                               _isChecked = val!;
                             });
                           }),
-                      const Text('تذكرني'),
                     ],
                   ),
                 ],
@@ -139,6 +184,32 @@ class _LoginScreenState extends State<LoginScreen> {
                   buildSelectableButton('الدخول كزائر', 1),
                   const SizedBox(height: 10),
                   buildSelectableButton('إنشاء حساب', 2),
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.center,
+                  //   children: [
+                  //     IconButton(
+                  //       icon: Image.asset('assets/images/google.png'),
+                  //       onPressed: () {
+                  //         // Handle Google login
+                  //       },
+                  //     ),
+                  //     IconButton(
+                  //       icon: Image.asset('assets/images/apple.png'),
+                  //       onPressed: () {
+                  //         // Handle Apple login
+                  //       },
+                  //     ),
+                  //     IconButton(
+                  //       icon: Image.asset(
+                  //         'assets/images/Facebook.png',
+                  //         height: 25,
+                  //       ),
+                  //       onPressed: () {
+                  //         // Handle Facebook login
+                  //       },
+                  //     ),
+                  //   ],
+                  // ),
                 ],
               ),
               const SizedBox(height: 16),
@@ -150,43 +221,60 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Widget buildSelectableButton(String text, int index) {
-    return ElevatedButton(
-      onPressed: () {
-        setState(() {
-          _selectedButtonIndex = index;
-        });
-
-        if (index == 0) {
-          // Validate form before proceeding
-          if (_formKey.currentState!.validate()) {
-            final email = _emailController.text;
-            final password = _passwordController.text;
-
-            // Call the login function from LoginProvider
-            Provider.of<LoginProvider>(context, listen: false)
-                .login(email, password, context);
-          }
-        } else if (index == 1) {
-          // Guest login action
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => const HomePage()));
-        } else if (index == 2) {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => const SignUpScreen()));
-        }
-      },
-      style: ElevatedButton.styleFrom(
-        backgroundColor:
-            _selectedButtonIndex == index ? backgroundColor : Colors.white,
-        side: BorderSide(color: backgroundColor),
-        padding: const EdgeInsets.symmetric(vertical: 14),
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 5),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10), // Rounded corners
+        border: Border.all(
+          color: _selectedButtonIndex == index
+              ? Colors.transparent
+              : backgroundColor,
+          width: 2,
+        ),
+        color: _selectedButtonIndex == index ? backgroundColor : Colors.white,
       ),
-      child: Text(
-        text,
-        style: TextStyle(
-          color: _selectedButtonIndex == index ? Colors.white : Colors.black,
-          fontSize: 18,
-          fontWeight: FontWeight.w600,
+      child: ElevatedButton(
+        onPressed: () {
+          setState(() {
+            _selectedButtonIndex = index;
+          });
+
+          if (index == 0) {
+            // Validate form before proceeding
+            if (_formKey.currentState!.validate()) {
+              final email = _emailController.text;
+              final password = _passwordController.text;
+
+              // Call the login function from LoginProvider
+              Provider.of<LoginProvider>(context, listen: false)
+                  .login(email, password, context);
+            }
+          } else if (index == 1) {
+            // Guest login action
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const HomePage()));
+          } else if (index == 2) {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const SignUpScreen()));
+          }
+        },
+        style: ElevatedButton.styleFrom(
+          padding: const EdgeInsets.symmetric(
+              vertical: 15), // Increased padding for height
+          shape: RoundedRectangleBorder(
+            borderRadius:
+                BorderRadius.circular(10), // Match container's border radius
+          ),
+          elevation: 0, // Remove shadow
+          backgroundColor: Colors.transparent, // Transparent for better control
+        ),
+        child: Text(
+          text,
+          style: TextStyle(
+            color: _selectedButtonIndex == index ? Colors.white : Colors.black,
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+          ),
         ),
       ),
     );

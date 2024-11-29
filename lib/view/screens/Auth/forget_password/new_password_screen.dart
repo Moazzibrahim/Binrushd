@@ -3,16 +3,23 @@ import 'package:flutter_application_1/constants/constants.dart';
 import 'package:flutter_application_1/controller/Auth/reset_password_provider.dart';
 import 'package:provider/provider.dart';
 
-class NewPasswordScreen extends StatelessWidget {
+class NewPasswordScreen extends StatefulWidget {
   final String? tokens;
   const NewPasswordScreen({super.key, this.tokens});
 
   @override
-  Widget build(BuildContext context) {
-    final TextEditingController passwordController = TextEditingController();
-    final TextEditingController confirmPasswordController =
-        TextEditingController();
+  _NewPasswordScreenState createState() => _NewPasswordScreenState();
+}
 
+class _NewPasswordScreenState extends State<NewPasswordScreen> {
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController confirmPasswordController =
+      TextEditingController();
+  bool _isPasswordVisible = false;
+  bool _isConfPasswordVisible = false;
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -51,15 +58,25 @@ class NewPasswordScreen extends StatelessWidget {
             buildLabeledTextField(
               label: 'ادخل كلمة سر جديدة',
               controller: passwordController,
-              icon: Icons.lock,
-              obscureText: true,
+              icon: Icons.visibility,
+              obscureText: !_isPasswordVisible,
+              onToggleVisibility: () {
+                setState(() {
+                  _isPasswordVisible = !_isPasswordVisible;
+                });
+              },
             ),
             const SizedBox(height: 20),
             buildLabeledTextField(
               label: 'تأكيد كلمة السر',
               controller: confirmPasswordController,
-              icon: Icons.lock,
-              obscureText: true,
+              icon: Icons.visibility,
+              obscureText: !_isConfPasswordVisible,
+              onToggleVisibility: () {
+                setState(() {
+                  _isConfPasswordVisible = !_isConfPasswordVisible;
+                });
+              },
             ),
             const SizedBox(height: 120),
             ElevatedButton(
@@ -90,7 +107,7 @@ class NewPasswordScreen extends StatelessWidget {
                     .resetPasswordP(
                   password: password,
                   confPassword: confirmPassword,
-                  token: tokens,
+                  token: widget.tokens,
                   context: context,
                 );
               },
@@ -119,6 +136,7 @@ class NewPasswordScreen extends StatelessWidget {
     required TextEditingController controller,
     required IconData icon,
     bool obscureText = false,
+    required VoidCallback onToggleVisibility,
   }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.end,
@@ -137,10 +155,29 @@ class NewPasswordScreen extends StatelessWidget {
           textAlign: TextAlign.right,
           obscureText: obscureText,
           decoration: InputDecoration(
+            contentPadding:
+                const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(15), // Rounded border
+              borderSide: const BorderSide(color: Colors.grey, width: 1),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(15),
+              borderSide: const BorderSide(color: Colors.grey, width: 1),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(15),
+              borderSide: const BorderSide(color: Colors.grey, width: 1.5),
+            ),
             hintText: '●●●●●●●',
             hintStyle: const TextStyle(color: Colors.grey),
-            suffixIcon: Icon(icon),
-            border: const OutlineInputBorder(),
+            prefixIcon: IconButton(
+              icon: Icon(
+                obscureText ? Icons.visibility : Icons.visibility_off,
+                color: Colors.grey,
+              ),
+              onPressed: onToggleVisibility,
+            ),
           ),
         ),
       ],
