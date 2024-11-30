@@ -68,9 +68,9 @@ class SpecialistsScreen extends StatelessWidget {
                       child: Text(
                         department.name,
                         style: const TextStyle(
-                          fontSize: 14,
-                          color: Colors.black,
-                        ),
+                            fontSize: 12,
+                            color: Colors.black,
+                            fontWeight: FontWeight.w400),
                         textAlign: TextAlign.center,
                       ),
                     ),

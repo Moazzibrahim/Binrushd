@@ -43,9 +43,9 @@ class _LoginScreenState extends State<LoginScreen> {
               const Text(
                 'اسم المستخدم',
                 style: TextStyle(
-                  fontSize: 16,
+                  fontSize: 14,
                   color: Colors.black,
-                  fontWeight: FontWeight.w800,
+                  fontWeight: FontWeight.w600,
                 ),
                 textAlign: TextAlign.end,
               ),
@@ -55,10 +55,13 @@ class _LoginScreenState extends State<LoginScreen> {
                 textAlign: TextAlign.right,
                 decoration: InputDecoration(
                   hintText: 'ادخل اسمك بالكامل',
-                  hintStyle: const TextStyle(color: Colors.grey),
-                  suffixIcon: const Icon(
-                    Icons.person,
-                    color: Colors.grey,
+                  hintStyle: const TextStyle(
+                      color: Colors.grey,
+                      fontSize: 13,
+                      fontWeight: FontWeight.w400),
+                  suffixIcon: Image.asset(
+                    "assets/images/vuesax.png",
+                    height: 8,
                   ),
                   contentPadding:
                       const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
@@ -87,9 +90,9 @@ class _LoginScreenState extends State<LoginScreen> {
               const Text(
                 'كلمة السر',
                 style: TextStyle(
-                  fontSize: 16,
+                  fontSize: 14,
                   color: Colors.black,
-                  fontWeight: FontWeight.w800,
+                  fontWeight: FontWeight.w600,
                 ),
                 textAlign: TextAlign.end,
               ),
@@ -155,14 +158,18 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: Text(
                       'نسيت كلمة السر؟',
                       style: TextStyle(
-                          fontSize: 16,
+                          fontSize: 14,
                           color: backgroundColor,
-                          fontWeight: FontWeight.w500),
+                          fontWeight: FontWeight.w400),
                     ),
                   ),
                   Row(
                     children: [
-                      const Text("تذكرني"),
+                      const Text(
+                        "تذكرني",
+                        style: TextStyle(
+                            fontSize: 14, fontWeight: FontWeight.w400),
+                      ),
                       Checkbox(
                           value: _isChecked,
                           onChanged: (val) {
@@ -184,32 +191,32 @@ class _LoginScreenState extends State<LoginScreen> {
                   buildSelectableButton('الدخول كزائر', 1),
                   const SizedBox(height: 10),
                   buildSelectableButton('إنشاء حساب', 2),
-                  // Row(
-                  //   mainAxisAlignment: MainAxisAlignment.center,
-                  //   children: [
-                  //     IconButton(
-                  //       icon: Image.asset('assets/images/google.png'),
-                  //       onPressed: () {
-                  //         // Handle Google login
-                  //       },
-                  //     ),
-                  //     IconButton(
-                  //       icon: Image.asset('assets/images/apple.png'),
-                  //       onPressed: () {
-                  //         // Handle Apple login
-                  //       },
-                  //     ),
-                  //     IconButton(
-                  //       icon: Image.asset(
-                  //         'assets/images/Facebook.png',
-                  //         height: 25,
-                  //       ),
-                  //       onPressed: () {
-                  //         // Handle Facebook login
-                  //       },
-                  //     ),
-                  //   ],
-                  // ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      IconButton(
+                        icon: Image.asset('assets/images/google.png'),
+                        onPressed: () {
+                          // Handle Google login
+                        },
+                      ),
+                      IconButton(
+                        icon: Image.asset('assets/images/apple.png'),
+                        onPressed: () {
+                          // Handle Apple login
+                        },
+                      ),
+                      IconButton(
+                        icon: Image.asset(
+                          'assets/images/Facebook.png',
+                          height: 25,
+                        ),
+                        onPressed: () {
+                          // Handle Facebook login
+                        },
+                      ),
+                    ],
+                  ),
                 ],
               ),
               const SizedBox(height: 16),
@@ -231,7 +238,9 @@ class _LoginScreenState extends State<LoginScreen> {
               : backgroundColor,
           width: 2,
         ),
-        color: _selectedButtonIndex == index ? backgroundColor : Colors.white,
+        color: _selectedButtonIndex == index
+            ? const Color(0xFF950000)
+            : Colors.white,
       ),
       child: ElevatedButton(
         onPressed: () {
@@ -272,8 +281,8 @@ class _LoginScreenState extends State<LoginScreen> {
           text,
           style: TextStyle(
             color: _selectedButtonIndex == index ? Colors.white : Colors.black,
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
+            fontSize: 14,
+            fontWeight: FontWeight.w600,
           ),
         ),
       ),

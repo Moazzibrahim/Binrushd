@@ -58,10 +58,14 @@ class MyApp extends StatelessWidget {
       child: ScreenUtilInit(
         designSize: const Size(375, 812), // Base design dimensions
         builder: (context, child) {
-          return const MaterialApp(
+          return MaterialApp(
             debugShowCheckedModeBanner: false,
             title: 'Binrushd',
-            home: SplashScreen(),
+            theme: ThemeData(
+              fontFamily: 'IBM Plex Sans Arabic', // Set your global font family
+              // You can also customize other theme properties here if needed
+            ),
+            home: const SplashScreen(),
           );
         },
       ),

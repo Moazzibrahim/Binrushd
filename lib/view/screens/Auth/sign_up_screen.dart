@@ -1,3 +1,4 @@
+// ignore_for_file: library_private_types_in_public_api
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/constants/constants.dart';
 import 'package:flutter_application_1/controller/Auth/sign_up_provider.dart';
@@ -12,8 +13,8 @@ class SignUpScreen extends StatefulWidget {
 
 class _SignUpScreenState extends State<SignUpScreen> {
   // ValueNotifiers to manage password visibility
-  ValueNotifier<bool> _passwordVisible = ValueNotifier<bool>(false);
-  ValueNotifier<bool> _confirmPasswordVisible = ValueNotifier<bool>(false);
+  final ValueNotifier<bool> _passwordVisible = ValueNotifier<bool>(false);
+  final ValueNotifier<bool> _confirmPasswordVisible = ValueNotifier<bool>(false);
 
   final TextEditingController firstNameController = TextEditingController();
   final TextEditingController lastNameController = TextEditingController();

@@ -55,7 +55,7 @@ class _HomePageState extends State<HomePage> {
             style: ElevatedButton.styleFrom(
               backgroundColor: backgroundColor,
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(15.r),
+                borderRadius: BorderRadius.circular(13.r),
               ),
             ),
             onPressed: () {
@@ -66,19 +66,22 @@ class _HomePageState extends State<HomePage> {
             },
             child: Text(
               'حجز موعد',
-              style: TextStyle(fontSize: 16.sp, color: Colors.white),
+              style: TextStyle(
+                  fontSize: 12.sp,
+                  color: Colors.white,
+                  fontWeight: FontWeight.w600),
             ),
           ),
           SizedBox(
-            width: 130.w,
+            width: 185.w,
           ),
           Padding(
             padding: EdgeInsets.all(10.0.w),
             child: Text(
               'مرحبًا، محمد!',
               style: TextStyle(
-                fontSize: 18.sp,
-                fontWeight: FontWeight.bold,
+                fontSize: 14.sp,
+                fontWeight: FontWeight.w400,
               ),
             ),
           ),
@@ -131,6 +134,8 @@ class _HomePageState extends State<HomePage> {
                       textAlign: TextAlign.right,
                       decoration: InputDecoration(
                         hintText: 'ابحث هنا',
+                        hintStyle: const TextStyle(
+                            fontSize: 10, fontWeight: FontWeight.w400),
                         suffixIcon: const Icon(Icons.search),
                         border: OutlineInputBorder(
                           borderSide: BorderSide.none,
@@ -202,7 +207,7 @@ class _HomePageState extends State<HomePage> {
                           "استعراض الكل",
                           style: TextStyle(
                               color: backgroundColor,
-                              fontSize: 12,
+                              fontSize: 10,
                               fontWeight: FontWeight.w600),
                         ),
                       ),
@@ -210,7 +215,7 @@ class _HomePageState extends State<HomePage> {
                         "التخصصات",
                         style: TextStyle(
                             color: Colors.black,
-                            fontWeight: FontWeight.bold,
+                            fontWeight: FontWeight.w600,
                             fontSize: 18),
                       ),
                     ],
@@ -245,8 +250,12 @@ class _HomePageState extends State<HomePage> {
                                         .image), // Use index to get the image
                                   ),
                                   const SizedBox(height: 4),
-                                  Text(department
-                                      .name), // Use index to get the text
+                                  Text(
+                                    department.name,
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 10),
+                                  ), // Use index to get the text
                                 ],
                               ),
                             );
@@ -267,7 +276,7 @@ class _HomePageState extends State<HomePage> {
                         Padding(
                           padding: const EdgeInsets.only(right: 2),
                           child: FilterButton(
-                              icon: Icons.location_city,
+                              image: "assets/images/building.png",
                               label: 'الفروع',
                               backgroundColor: Colors.grey[200],
                               isSelected:
@@ -281,7 +290,7 @@ class _HomePageState extends State<HomePage> {
                         ),
                         const SizedBox(width: 8),
                         FilterButton(
-                            icon: Icons.person,
+                            image: "assets/images/plane.png",
                             label: 'الأطباء',
                             backgroundColor: Colors.grey[200],
                             isSelected:
@@ -320,17 +329,17 @@ class _HomePageState extends State<HomePage> {
                                 text:
                                     'نقدم لكم في مركز بن رشد نخبة من\n الأطباء المتخصصين. ',
                                 style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w600,
                                   color: Colors.black,
                                 ),
                               ),
                               TextSpan(
                                   text: 'استعراض الكل',
                                   style: TextStyle(
-                                    fontSize: 18,
+                                    fontSize: 15,
                                     color: backgroundColor,
-                                    fontWeight: FontWeight.bold,
+                                    fontWeight: FontWeight.w600,
                                   ),
                                   recognizer: TapGestureRecognizer()
                                     ..onTap = () {
@@ -351,17 +360,17 @@ class _HomePageState extends State<HomePage> {
                               const TextSpan(
                                 text: 'اختر الفرع الاقرب لك ',
                                 style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w600,
                                   color: Colors.black,
                                 ),
                               ),
                               TextSpan(
                                   text: 'استعراض الكل',
                                   style: TextStyle(
-                                    fontSize: 18,
+                                    fontSize: 10,
                                     color: backgroundColor,
-                                    fontWeight: FontWeight.bold,
+                                    fontWeight: FontWeight.w600,
                                   ),
                                   recognizer: TapGestureRecognizer()
                                     ..onTap = () {
@@ -408,7 +417,7 @@ class _HomePageState extends State<HomePage> {
 
                             return Padding(
                               padding:
-                                  const EdgeInsets.symmetric(horizontal: 8.0),
+                                  const EdgeInsets.symmetric(horizontal: 10.0),
                               child: Card(
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10),
@@ -431,15 +440,16 @@ class _HomePageState extends State<HomePage> {
                                           ),
                                     const SizedBox(height: 8),
                                     // Display doctor name
-                                    Text("${doctor.fname} ${doctor.lname}"),
+                                    Text(
+                                      "${doctor.fname} ${doctor.lname}",
+                                      style: const TextStyle(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w600),
+                                    ),
                                     const SizedBox(height: 4),
                                     ElevatedButton(
                                       style: ElevatedButton.styleFrom(
                                         backgroundColor: backgroundColor,
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(8),
-                                        ),
                                       ),
                                       onPressed: () {
                                         Navigator.push(
@@ -452,7 +462,10 @@ class _HomePageState extends State<HomePage> {
                                       },
                                       child: const Text(
                                         'حجز موعد',
-                                        style: TextStyle(color: Colors.white),
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 8,
+                                            fontWeight: FontWeight.w600),
                                       ),
                                     ),
                                   ],
@@ -519,10 +532,6 @@ class _HomePageState extends State<HomePage> {
                                     ElevatedButton(
                                       style: ElevatedButton.styleFrom(
                                         backgroundColor: backgroundColor,
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(8),
-                                        ),
                                       ),
                                       onPressed: () {
                                         Navigator.push(
@@ -533,7 +542,10 @@ class _HomePageState extends State<HomePage> {
                                       },
                                       child: const Text(
                                         'حجز موعد',
-                                        style: TextStyle(color: Colors.white),
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 8,
+                                            fontWeight: FontWeight.w600),
                                       ),
                                     ),
                                   ],
@@ -563,15 +575,15 @@ class _HomePageState extends State<HomePage> {
                     child: Text(
                       "استعراض الكل",
                       style: TextStyle(
-                        fontSize: 13,
+                        fontSize: 10,
                         color: backgroundColor,
-                        fontWeight: FontWeight.bold,
+                        fontWeight: FontWeight.w600,
                       ),
                     ),
                   ),
                   const Text(
                     "مقالات صحية ",
-                    style: TextStyle(fontWeight: FontWeight.w700, fontSize: 18),
+                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
                   ),
                 ],
               ),
@@ -635,19 +647,17 @@ class _HomePageState extends State<HomePage> {
 }
 
 class FilterButton extends StatelessWidget {
-  final IconData icon;
   final String label;
   final Color? backgroundColor;
   final bool isSelected;
-  final Image? image;
+  final String image;
   final VoidCallback onTap;
 
   const FilterButton({
-    required this.icon,
     required this.label,
     this.backgroundColor,
     this.isSelected = false,
-    this.image,
+    required this.image,
     super.key,
     required this.onTap,
   });
@@ -663,19 +673,19 @@ class FilterButton extends StatelessWidget {
           color: backgroundColor,
           borderRadius: BorderRadius.circular(8),
         ),
-        child: Column(
+        child: Row(
           children: [
-            Icon(
-              icon,
-              color: isSelected ? dartRedColor : Colors.black,
-            ),
-            const SizedBox(height: 4),
             Text(
               label,
               style: TextStyle(
-                color: isSelected ? dartRedColor : Colors.black,
-                fontWeight: FontWeight.w800,
-              ),
+                  color: isSelected ? dartRedColor : Colors.black,
+                  fontWeight: FontWeight.w600,
+                  fontSize: 10),
+            ),
+            const SizedBox(width: 4),
+            Image.asset(
+              image,
+              color: isSelected ? dartRedColor : Colors.black,
             ),
           ],
         ),
@@ -705,7 +715,7 @@ Widget buildArticleCard(BuildContext context,
                 Text(
                   title,
                   style: const TextStyle(
-                    fontSize: 14,
+                    fontSize: 12,
                     color: Colors.black,
                   ),
                   maxLines: 3,
@@ -716,9 +726,9 @@ Widget buildArticleCard(BuildContext context,
                 Text(
                   content,
                   style: const TextStyle(
-                    fontSize: 12,
-                    color: Colors.grey,
-                  ),
+                      fontSize: 12,
+                      color: Colors.grey,
+                      fontWeight: FontWeight.w400),
                 ),
               ],
             ),
