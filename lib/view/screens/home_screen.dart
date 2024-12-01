@@ -73,12 +73,12 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           SizedBox(
-            width: 185.w,
+            width: 190.w,
           ),
           Padding(
             padding: EdgeInsets.all(10.0.w),
             child: Text(
-              'مرحبًا، محمد!',
+              'مرحبًا!',
               style: TextStyle(
                 fontSize: 14.sp,
                 fontWeight: FontWeight.w400,
@@ -273,22 +273,6 @@ class _HomePageState extends State<HomePage> {
                       textDirection: TextDirection.rtl,
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Padding(
-                          padding: const EdgeInsets.only(right: 2),
-                          child: FilterButton(
-                              image: "assets/images/building.png",
-                              label: 'الفروع',
-                              backgroundColor: Colors.grey[200],
-                              isSelected:
-                                  !isDoctorsSelected, // Invert the state
-                              onTap: () {
-                                setState(() {
-                                  isDoctorsSelected = false;
-                                  selectionindex = 1;
-                                });
-                              }),
-                        ),
-                        const SizedBox(width: 8),
                         FilterButton(
                             image: "assets/images/plane.png",
                             label: 'الأطباء',
@@ -299,6 +283,18 @@ class _HomePageState extends State<HomePage> {
                               setState(() {
                                 isDoctorsSelected = true;
                                 selectionindex = 0;
+                              });
+                            }),
+                        const SizedBox(width: 5),
+                        FilterButton(
+                            image: "assets/images/building.png",
+                            label: 'الفروع',
+                            backgroundColor: Colors.grey[200],
+                            isSelected: !isDoctorsSelected, // Invert the state
+                            onTap: () {
+                              setState(() {
+                                isDoctorsSelected = false;
+                                selectionindex = 1;
                               });
                             }),
                         const SizedBox(
@@ -684,6 +680,7 @@ class FilterButton extends StatelessWidget {
             ),
             const SizedBox(width: 4),
             Image.asset(
+              width: 10,
               image,
               color: isSelected ? dartRedColor : Colors.black,
             ),

@@ -23,7 +23,10 @@ class _AllArticlesScreenState extends State<AllArticlesScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('مقالات صحية'),
+        title: const Text(
+          'مقالات صحية',
+          style: TextStyle(fontWeight: FontWeight.w700, fontSize: 18),
+        ),
         centerTitle: true,
         automaticallyImplyLeading: false,
         actions: [
@@ -73,8 +76,8 @@ class _AllArticlesScreenState extends State<AllArticlesScreen> {
                             Text(
                               article.title,
                               style: const TextStyle(
-                                fontSize: 24,
-                                fontWeight: FontWeight.bold,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600,
                               ),
                             ),
                             const SizedBox(height: 8),
@@ -82,8 +85,7 @@ class _AllArticlesScreenState extends State<AllArticlesScreen> {
                             Text(
                               article.content,
                               style: const TextStyle(
-                                fontSize: 16,
-                              ),
+                                  fontSize: 12, fontWeight: FontWeight.w400),
                               textAlign: TextAlign.justify,
                             ),
                           ],

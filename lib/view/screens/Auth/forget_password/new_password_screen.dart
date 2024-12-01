@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/constants/constants.dart';
 import 'package:flutter_application_1/controller/Auth/reset_password_provider.dart';
@@ -25,7 +27,10 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
         automaticallyImplyLeading: false,
         title: Text(
           'انشاء كلمة سر جديدة',
-          style: TextStyle(color: backgroundColor, fontWeight: FontWeight.w700),
+          style: TextStyle(
+              color: backgroundColor,
+              fontWeight: FontWeight.w700,
+              fontSize: 20),
         ),
         centerTitle: true,
         backgroundColor: Colors.transparent,
@@ -49,7 +54,8 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
             const Text(
               'إنشاء كلمة سر جديدة',
               style: TextStyle(
-                fontSize: 16,
+                fontSize: 14,
+                fontWeight: FontWeight.w500,
                 color: Colors.grey,
               ),
               textAlign: TextAlign.center,
@@ -122,7 +128,10 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
               ),
               child: const Text(
                 'حفظ',
-                style: TextStyle(color: Colors.white, fontSize: 16),
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600),
               ),
             ),
           ],
@@ -145,7 +154,7 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
           label,
           style: const TextStyle(
             fontSize: 14,
-            fontWeight: FontWeight.bold,
+            fontWeight: FontWeight.w600,
             color: Colors.black,
           ),
         ),

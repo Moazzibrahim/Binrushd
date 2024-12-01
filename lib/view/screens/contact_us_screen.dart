@@ -54,7 +54,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
         automaticallyImplyLeading: false,
         title: const Text(
           "تواصل معنا",
-          style: TextStyle(fontSize: 20),
+          style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
         ),
         actions: [
           IconButton(
@@ -73,13 +73,16 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
             children: [
               const Text(
                 "مرحبا بك 👋",
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
               ),
               const SizedBox(height: 8),
               const Text(
                 "نسعد بتواصلك معنا. يرجى ملء النموذج أدناه وسنحاول الاتصال بك في أقرب وقت ممكن.",
                 textAlign: TextAlign.right,
-                style: TextStyle(fontSize: 14, color: Colors.grey),
+                style: TextStyle(
+                    fontSize: 14,
+                    color: Colors.grey,
+                    fontWeight: FontWeight.w400),
               ),
               const SizedBox(height: 24),
               _buildTextField(

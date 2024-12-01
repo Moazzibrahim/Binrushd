@@ -54,7 +54,10 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
         ],
         title: Text(
           'نسيت كلمة السر؟',
-          style: TextStyle(color: backgroundColor, fontWeight: FontWeight.w700),
+          style: TextStyle(
+              color: backgroundColor,
+              fontWeight: FontWeight.w700,
+              fontSize: 20),
         ),
         centerTitle: true,
       ),
@@ -72,7 +75,8 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
               'قم بتحديد الطريقة التي تريد أن تسترد بها كلمة السر الخاصة بك.',
               textAlign: TextAlign.center,
               style: TextStyle(
-                fontSize: 16,
+                fontSize: 14,
+                fontWeight: FontWeight.w400,
                 color: Colors.grey[700],
               ),
             ),
@@ -98,8 +102,8 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                   title: Text(
                     'إرسال رمز عبر الإيميل الخاص بك',
                     style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400,
                       color: _selectedOption == 1 ? Colors.white : Colors.black,
                     ),
                   ),
@@ -139,7 +143,10 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
               ),
               child: const Text(
                 'إرسال',
-                style: TextStyle(fontSize: 15, color: Colors.white),
+                style: TextStyle(
+                    fontSize: 14,
+                    color: Colors.white,
+                    fontWeight: FontWeight.w400),
               ),
             ),
           ],

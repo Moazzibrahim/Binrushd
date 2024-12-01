@@ -18,9 +18,9 @@ class MyAppointmentsScreen extends StatelessWidget {
         title: const Text(
           'حجوزاتي',
           style: TextStyle(
-            fontFamily: 'Arial', // Change to your preferred Arabic font
-            fontWeight: FontWeight.bold,
-          ),
+              fontFamily: 'Arial', // Change to your preferred Arabic font
+              fontWeight: FontWeight.w700,
+              fontSize: 18),
         ),
         centerTitle: true,
         backgroundColor: Colors.white,
@@ -135,7 +135,7 @@ class _DoctorCardState extends State<DoctorCard> {
                     Text(
                       widget.name,
                       style: const TextStyle(
-                        fontWeight: FontWeight.bold,
+                        fontWeight: FontWeight.w600,
                         fontSize: 16,
                       ),
                       textAlign: TextAlign.right,
@@ -144,7 +144,7 @@ class _DoctorCardState extends State<DoctorCard> {
                     Text(
                       widget.doctorname ?? '',
                       style: const TextStyle(
-                        fontWeight: FontWeight.bold,
+                        fontWeight: FontWeight.w600,
                         fontSize: 16,
                       ),
                       textAlign: TextAlign.right,
@@ -156,9 +156,9 @@ class _DoctorCardState extends State<DoctorCard> {
                           child: Text(
                             widget.location,
                             style: const TextStyle(
-                              color: Colors.grey,
-                              fontSize: 12,
-                            ),
+                                color: Colors.grey,
+                                fontSize: 12,
+                                fontWeight: FontWeight.w400),
                             textAlign: TextAlign.right,
                           ),
                         ),

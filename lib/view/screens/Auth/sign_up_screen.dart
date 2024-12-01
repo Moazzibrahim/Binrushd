@@ -14,14 +14,16 @@ class SignUpScreen extends StatefulWidget {
 class _SignUpScreenState extends State<SignUpScreen> {
   // ValueNotifiers to manage password visibility
   final ValueNotifier<bool> _passwordVisible = ValueNotifier<bool>(false);
-  final ValueNotifier<bool> _confirmPasswordVisible = ValueNotifier<bool>(false);
+  final ValueNotifier<bool> _confirmPasswordVisible =
+      ValueNotifier<bool>(false);
 
   final TextEditingController firstNameController = TextEditingController();
   final TextEditingController lastNameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController phoneController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  final TextEditingController confirmPasswordController = TextEditingController();
+  final TextEditingController confirmPasswordController =
+      TextEditingController();
 
   final formKey = GlobalKey<FormState>();
 
@@ -42,7 +44,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
         automaticallyImplyLeading: false,
         title: Text(
           'انشاء حساب جديد',
-          style: TextStyle(color: backgroundColor, fontWeight: FontWeight.w700),
+          style: TextStyle(
+              color: backgroundColor,
+              fontWeight: FontWeight.w700,
+              fontSize: 20),
         ),
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -66,7 +71,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 buildLabeledTextField(
                   'الاسم الاول',
                   'محمد',
-                  Icons.person,
+                  "assets/images/vuesax.png",
                   controller: firstNameController,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -79,7 +84,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 buildLabeledTextField(
                   'الاسم التاني',
                   'ابراهيم',
-                  Icons.person,
+                  "assets/images/vuesax.png",
                   controller: lastNameController,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -92,7 +97,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 buildLabeledTextField(
                   'الإيميل',
                   'abd223@gmail.com',
-                  Icons.email,
+                  "assets/images/smallemail.png",
                   controller: emailController,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -110,7 +115,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 buildLabeledTextField(
                   'رقم الهاتف',
                   '+2200115556667',
-                  Icons.phone,
+                  "assets/images/phonecall.png",
                   controller: phoneController,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -176,15 +181,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               borderRadius: BorderRadius.circular(10)),
                           backgroundColor: backgroundColor,
                           padding: const EdgeInsets.symmetric(
-                              horizontal: 130, vertical: 15),
+                              horizontal: 115, vertical: 15),
                           textStyle: const TextStyle(fontSize: 16),
                         ),
                         child: const Text(
                           'انشاء حساب',
                           style: TextStyle(
                               color: Colors.white,
-                              fontSize: 13,
-                              fontWeight: FontWeight.w500),
+                              fontSize: 14,
+                              fontWeight: FontWeight.w600),
                         ),
                       ),
               ],
@@ -203,12 +208,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
     required String? Function(String?) validator,
   }) {
     return ValueListenableBuilder<bool>(
-      valueListenable: label == 'كلمة السر' ? _passwordVisible : _confirmPasswordVisible,
+      valueListenable:
+          label == 'كلمة السر' ? _passwordVisible : _confirmPasswordVisible,
       builder: (context, isPasswordVisible, child) {
         return buildLabeledTextField(
           label,
           hintText,
-          icon,
+          "assets/images/eye.png",
           controller: controller,
           obscureText: !isPasswordVisible,
           validator: validator,
@@ -233,7 +239,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
   Widget buildLabeledTextField(
     String label,
     String hintText,
-    IconData icon, {
+    String assetImagePath, // Replace IconData with asset image path
+    {
     bool obscureText = false,
     TextEditingController? controller,
     String? Function(String?)? validator,
@@ -246,7 +253,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
           label,
           style: const TextStyle(
             fontSize: 14,
-            fontWeight: FontWeight.bold,
+            fontWeight: FontWeight.w600,
             color: Colors.black,
           ),
         ),
@@ -271,8 +278,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
               borderSide: const BorderSide(color: Colors.grey, width: 1.5),
             ),
             hintText: hintText,
-            hintStyle: const TextStyle(color: Colors.grey),
-            suffixIcon: suffixIcon ?? Icon(icon),
+            hintStyle: const TextStyle(
+                color: Colors.grey, fontSize: 12, fontWeight: FontWeight.w400),
+            suffixIcon: suffixIcon ??
+                Padding(
+                  padding:
+                      const EdgeInsets.all(8.0), // Adjust padding if needed
+                  child: Image.asset(
+                    assetImagePath,
+                    width: 24, // Adjust the width if needed
+                    height: 24, // Adjust the height if needed
+                  ),
+                ),
           ),
           validator: validator,
         ),

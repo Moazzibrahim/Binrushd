@@ -70,7 +70,10 @@ class _EmailConfirmationScreenState extends State<CheckForgetPasswordScreen> {
         ],
         title: Text(
           'تأكيد الايميل الخاص بك',
-          style: TextStyle(color: backgroundColor, fontWeight: FontWeight.w700),
+          style: TextStyle(
+              color: backgroundColor,
+              fontWeight: FontWeight.w700,
+              fontSize: 20),
         ),
         centerTitle: true,
       ),
@@ -86,7 +89,8 @@ class _EmailConfirmationScreenState extends State<CheckForgetPasswordScreen> {
               '  ادخل الرمز التعريفى المرسل الى البريد الالكترونى',
               textAlign: TextAlign.center,
               style: TextStyle(
-                fontSize: 16,
+                fontSize: 14,
+                fontWeight: FontWeight.w500,
                 color: Colors.grey[700],
               ),
             ),
@@ -100,7 +104,7 @@ class _EmailConfirmationScreenState extends State<CheckForgetPasswordScreen> {
               keyboardType: TextInputType.number,
               showCursor: true,
             ),
-            const SizedBox(height: 30),
+            const SizedBox(height: 46),
             ElevatedButton(
               onPressed: () async {
                 final otp = _otpController.text.trim();
@@ -124,14 +128,17 @@ class _EmailConfirmationScreenState extends State<CheckForgetPasswordScreen> {
               style: ElevatedButton.styleFrom(
                 backgroundColor: backgroundColor,
                 padding:
-                    const EdgeInsets.symmetric(vertical: 14, horizontal: 40),
+                    const EdgeInsets.symmetric(vertical: 14, horizontal: 110),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
                 ),
               ),
               child: const Text(
                 'تأكيد',
-                style: TextStyle(fontSize: 18, color: Colors.white),
+                style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.white),
               ),
             ),
           ],

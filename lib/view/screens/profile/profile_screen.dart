@@ -21,8 +21,8 @@ class ProfileScreens extends StatelessWidget {
             const Text(
               'محمد جابر',
               style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
               ),
             ),
             const SizedBox(height: 20),
@@ -100,13 +100,22 @@ class ProfileScreens extends StatelessWidget {
     return ListTile(
       onTap: onTap,
       leading: Icon(Icons.arrow_back_ios, color: color),
-      trailing: CircleAvatar(
-        backgroundColor: Colors.white,
-        child: Icon(icon, color: color),
-      ),
-      title: Text(
-        text,
-        style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+      trailing: SizedBox(
+        width: 150, // Adjust width as needed
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Text(
+              text,
+              style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
+            ),
+            const SizedBox(width: 8), // Add spacing between text and icon
+            CircleAvatar(
+              backgroundColor: Colors.white,
+              child: Icon(icon, color: color),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -121,8 +130,8 @@ class ProfileScreens extends StatelessWidget {
           'تسجيل الخروج',
           style: TextStyle(
             color: backgroundColor,
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
+            fontSize: 12,
+            fontWeight: FontWeight.w600,
           ),
         ),
         trailing: InkWell(
@@ -134,11 +143,14 @@ class ProfileScreens extends StatelessWidget {
                   title: const Text(
                     'تسجيل الخروج',
                     textAlign: TextAlign.center,
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
                   ),
                   content: const Text(
                     'هل انت متأكد انك تريد تسجيل الخروج من حسابك؟',
-                    style: TextStyle(color: Colors.grey, fontSize: 14),
+                    style: TextStyle(
+                        color: Colors.grey,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400),
                     textAlign: TextAlign.center,
                   ),
                   actions: [
@@ -194,9 +206,9 @@ class ProfileScreens extends StatelessWidget {
                               child: Text(
                                 'لا، الغاء',
                                 style: TextStyle(
-                                    fontWeight: FontWeight.bold,
+                                    fontWeight: FontWeight.w600,
                                     color: Colors.black,
-                                    fontSize: 16),
+                                    fontSize: 18),
                               ),
                             ),
                           ),
