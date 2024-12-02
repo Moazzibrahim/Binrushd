@@ -122,9 +122,7 @@ class _TabsScreenState extends State<TabsScreen> {
             Text(
               label,
               style: TextStyle(
-                color: color,
-                fontSize: 12,
-              ),
+                  color: color, fontSize: 10, fontWeight: FontWeight.w700),
             ),
         ],
       ),

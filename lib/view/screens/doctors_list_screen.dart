@@ -120,19 +120,23 @@ class _DoctorsListScreenState extends State<DoctorsListScreen> {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.end,
                                 children: [
-                                  Text(
-                                    "${doctor.fname} ${doctor.lname}",
-                                    style: const TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text(
+                                      "${doctor.fname} ${doctor.lname}",
+                                      style: const TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w600,
+                                      ),
                                     ),
                                   ),
                                   const SizedBox(height: 8),
                                   Text(
                                     doctor.speciality,
                                     style: const TextStyle(
-                                      fontSize: 14,
+                                      fontSize: 12,
                                       color: Colors.grey,
+                                      fontWeight: FontWeight.w400,
                                     ),
                                   ),
                                 ],

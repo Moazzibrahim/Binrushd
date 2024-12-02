@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/controller/fetch_posts_provider.dart';
+import 'package:flutter_application_1/view/screens/tabs_screen.dart';
 import 'package:provider/provider.dart';
 
 class AllArticlesScreen extends StatefulWidget {
@@ -33,7 +34,8 @@ class _AllArticlesScreenState extends State<AllArticlesScreen> {
           IconButton(
             icon: const Icon(Icons.arrow_back_ios),
             onPressed: () {
-              Navigator.pop(context);
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const TabsScreen()));
             },
           ),
         ],

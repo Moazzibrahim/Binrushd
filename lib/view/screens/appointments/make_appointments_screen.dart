@@ -135,14 +135,19 @@ class _MakeAppointmentScreenState extends State<MakeAppointmentScreen> {
               Center(
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10)),
                     backgroundColor: backgroundColor,
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 50, vertical: 15),
+                        horizontal: 120, vertical: 15),
                   ),
                   onPressed: _submitForm,
                   child: const Text(
                     "إرسال",
-                    style: TextStyle(fontSize: 18, color: Colors.white),
+                    style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.white,
+                        fontWeight: FontWeight.w600),
                   ),
                 ),
               ),
@@ -243,7 +248,7 @@ class _MakeAppointmentScreenState extends State<MakeAppointmentScreen> {
       children: [
         Text(
           label,
-          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+          style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
         ),
         const SizedBox(height: 8),
         TextField(
@@ -251,6 +256,8 @@ class _MakeAppointmentScreenState extends State<MakeAppointmentScreen> {
           textAlign: TextAlign.right,
           decoration: InputDecoration(
             hintText: hint,
+            hintStyle:
+                const TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
             suffixIcon: Icon(icon),
             border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
           ),
@@ -286,7 +293,10 @@ class _MakeAppointmentScreenState extends State<MakeAppointmentScreen> {
             alignment: Alignment.centerRight,
             child: Text(
               "اختر",
-              style: TextStyle(color: Colors.grey),
+              style: TextStyle(
+                  color: Colors.grey,
+                  fontSize: 12,
+                  fontWeight: FontWeight.w500),
             ),
           ),
           items: items,

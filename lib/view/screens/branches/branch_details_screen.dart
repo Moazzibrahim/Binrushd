@@ -53,14 +53,16 @@ class _BranchDetailsScreenState extends State<BranchDetailsScreen> {
 
                       final branch = provider.branchResponse!.data;
 
-                      return Text(
-                        branch.name,
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: backgroundColor,
+                      return Center(
+                        child: Text(
+                          branch.name,
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w700,
+                            color: backgroundColor,
+                          ),
+                          textAlign: TextAlign.center,
                         ),
-                        textAlign: TextAlign.center,
                       );
                     },
                   ),
@@ -70,7 +72,7 @@ class _BranchDetailsScreenState extends State<BranchDetailsScreen> {
                     'ساعات العمل',
                     style: TextStyle(
                       fontSize: 16,
-                      fontWeight: FontWeight.bold,
+                      fontWeight: FontWeight.w600,
                       color: Colors.black,
                     ),
                   ),
@@ -150,7 +152,7 @@ class ScheduleItem extends StatelessWidget {
               child: Text(
                 time,
                 style: const TextStyle(
-                  fontSize: 12,
+                  fontSize: 14,
                   color: Colors.black,
                   fontWeight: FontWeight.w400,
                 ),
@@ -165,9 +167,9 @@ class ScheduleItem extends StatelessWidget {
             child: Text(
               day,
               style: const TextStyle(
-                fontSize: 12,
-                color: Colors.black,
-              ),
+                  fontSize: 14,
+                  color: Colors.grey,
+                  fontWeight: FontWeight.w500),
               textAlign: TextAlign.right,
             ),
           ),

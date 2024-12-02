@@ -4,7 +4,6 @@ import 'package:flutter_application_1/controller/branches/fetch_branches_provide
 import 'package:flutter_application_1/view/screens/branches/branch_details_screen.dart';
 import 'package:provider/provider.dart';
 
-
 class AllBranchesScreen extends StatefulWidget {
   const AllBranchesScreen({super.key});
 
@@ -24,7 +23,7 @@ class _AllBranchesScreenState extends State<AllBranchesScreen> {
         appBar: AppBar(
           automaticallyImplyLeading: false,
           title: const Text('الفروع',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700)),
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700)),
           centerTitle: true,
           leading: IconButton(
             icon: const Icon(Icons.arrow_back_ios),
@@ -103,34 +102,37 @@ class CenterCard extends StatelessWidget {
                   Text(
                     location,
                     style: const TextStyle(
-                        fontSize: 14, fontWeight: FontWeight.w700),
+                        fontSize: 14, fontWeight: FontWeight.w500),
+                  ),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => BranchDetailsScreen(
+                                    branchId: id,
+                                    image: imageUrl,
+                                  )));
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: backgroundColor,
+                    ),
+                    child: const Text(
+                      'تفاصيل',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 10),
+                    ),
                   ),
                 ],
               ),
             ),
             const SizedBox(
               width: 6,
-            ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => BranchDetailsScreen(
-                              branchId: id,
-                              image: imageUrl,
-                            )));
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: backgroundColor,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
-                ),
-              ),
-              child: const Text(
-                'تفاصيل',
-                style: TextStyle(color: Colors.white),
-              ),
             ),
           ],
         ),
