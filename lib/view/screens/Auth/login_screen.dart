@@ -191,32 +191,32 @@ class _LoginScreenState extends State<LoginScreen> {
                   buildSelectableButton('الدخول كزائر', 1),
                   const SizedBox(height: 10),
                   buildSelectableButton('إنشاء حساب', 2),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      IconButton(
-                        icon: Image.asset('assets/images/google.png'),
-                        onPressed: () {
-                          // Handle Google login
-                        },
-                      ),
-                      IconButton(
-                        icon: Image.asset('assets/images/apple.png'),
-                        onPressed: () {
-                          // Handle Apple login
-                        },
-                      ),
-                      IconButton(
-                        icon: Image.asset(
-                          'assets/images/Facebook.png',
-                          height: 25,
-                        ),
-                        onPressed: () {
-                          // Handle Facebook login
-                        },
-                      ),
-                    ],
-                  ),
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.center,
+                  //   children: [
+                  //     IconButton(
+                  //       icon: Image.asset('assets/images/google.png'),
+                  //       onPressed: () {
+                  //         // Handle Google login
+                  //       },
+                  //     ),
+                  //     IconButton(
+                  //       icon: Image.asset('assets/images/apple.png'),
+                  //       onPressed: () {
+                  //         // Handle Apple login
+                  //       },
+                  //     ),
+                  //     IconButton(
+                  //       icon: Image.asset(
+                  //         'assets/images/Facebook.png',
+                  //         height: 25,
+                  //       ),
+                  //       onPressed: () {
+                  //         // Handle Facebook login
+                  //       },
+                  //     ),
+                  //   ],
+                  // ),
                 ],
               ),
               const SizedBox(height: 16),
